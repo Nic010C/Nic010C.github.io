@@ -2,10 +2,514 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Nicolò Calabrese</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nome Cognome — Ingegnere Elettrico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0E14;
+    --panel: #131A26;
+    --panel-border: #232F42;
+    --text: #EAF2F5;
+    --text-dim: #7C8CA3;
+    --accent: #00D4A0;
+    --accent-dim: #00D4A033;
+    --warn: #FFB627;
+    --grid-line: #1A2332;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.5;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ===== Layout shell ===== */
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== Nav ===== */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 14, 20, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--panel-border);
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 100px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; }
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  .hero p.lead {
+    font-size: 1.08rem;
+    color: var(--text-dim);
+    max-width: 46ch;
+    margin-bottom: 32px;
+  }
+
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn {
+    padding: 13px 26px;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    font-family: 'IBM Plex Mono', monospace;
+    transition: transform 0.15s ease, background 0.15s ease;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #06110D;
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: #1ee0b3; }
+  .btn-ghost {
+    border: 1px solid var(--panel-border);
+    color: var(--text);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ===== Circuit diagram illustration ===== */
+  .circuit-svg { width: 100%; height: auto; }
+  .circuit-line {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: draw 2.2s ease forwards;
+  }
+  .circuit-line.delay1 { animation-delay: 0.3s; }
+  .circuit-line.delay2 { animation-delay: 0.6s; }
+  .circuit-node {
+    fill: var(--bg);
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    opacity: 0;
+    animation: fadein 0.4s ease forwards;
+  }
+  .circuit-node.n1 { animation-delay: 0.5s; }
+  .circuit-node.n2 { animation-delay: 1s; }
+  .circuit-node.n3 { animation-delay: 1.5s; }
+  .circuit-node.n4 { animation-delay: 2s; }
+  .circuit-label {
+    fill: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    opacity: 0;
+    animation: fadein 0.4s ease forwards;
+    animation-delay: 2.1s;
+  }
+
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fadein { to { opacity: 1; } }
+
+  /* ===== Section headers ===== */
+  .section { padding: 90px 24px; border-top: 1px solid var(--panel-border); }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 44px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+    font-weight: 600;
+  }
+
+  /* ===== Projects grid ===== */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 760px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  .project-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    padding: 28px;
+    position: relative;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  /* terminal pins decoration, like a component package */
+  .project-card::before,
+  .project-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 2px;
+    background: var(--panel-border);
+  }
+  .project-card::before { left: -10px; }
+  .project-card::after { right: -10px; }
+
+  .project-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--warn);
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+    display: inline-block;
+    border: 1px solid #FFB62744;
+    padding: 3px 9px;
+    border-radius: 3px;
+  }
+
+  .project-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .project-card p {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    margin-bottom: 18px;
+  }
+
+  .project-specs {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.76rem;
+    color: var(--text-dim);
+    border-top: 1px solid var(--panel-border);
+    padding-top: 14px;
+  }
+  .project-specs span { color: var(--accent); }
+
+  /* ===== Skills / specs table ===== */
+  .specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.88rem;
+  }
+  .specs-table tr {
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .specs-table tr:last-child { border-bottom: none; }
+  .specs-table td {
+    padding: 16px 8px;
+  }
+  .specs-table td:first-child {
+    color: var(--text-dim);
+    width: 32%;
+  }
+  .specs-table td:last-child {
+    color: var(--text);
+  }
+  .bar-track {
+    height: 4px;
+    background: var(--grid-line);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* ===== Contact ===== */
+  .contact-panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 48px;
+    text-align: center;
+  }
+  @media (max-width: 600px) { .contact-panel { padding: 32px 20px; } }
+
+  .contact-panel h2 { margin-bottom: 14px; }
+  .contact-panel p { color: var(--text-dim); margin-bottom: 28px; }
+
+  .contact-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    border-top: 1px solid var(--panel-border);
+  }
+</style>
 </head>
 <body>
-<h1>Ciao, sono [Nome]</h1>
-<p>Sito in costruzione.</p>
+
+<header>
+  <nav>
+    <div class="logo"><span class="logo-dot"></span>N.COGNOME</div>
+    <div class="nav-links">
+      <a href="#progetti">Progetti</a>
+      <a href="#competenze">Competenze</a>
+      <a href="#contatti">Contatti</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">Ingegnere Elettrico</div>
+      <h1>Progetto sistemi elettrici che funzionano al primo avvio.</h1>
+      <p class="lead">Specializzato in progettazione di quadri elettrici, automazione e impiantistica industriale. Dal calcolo del carico alla messa in servizio.</p>
+      <div class="cta-row">
+        <a href="#progetti" class="btn btn-primary">Guarda i progetti</a>
+        <a href="#contatti" class="btn btn-ghost">Contattami</a>
+      </div>
+    </div>
+    <div>
+      <svg class="circuit-svg" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+        <path class="circuit-line" d="M20 40 H120 V100 H200" />
+        <path class="circuit-line delay1" d="M200 100 V180 H280" />
+        <path class="circuit-line delay2" d="M120 100 H60 V180 H20" />
+        <circle class="circuit-node n1" cx="20" cy="40" r="5"/>
+        <circle class="circuit-node n2" cx="200" cy="100" r="5"/>
+        <circle class="circuit-node n3" cx="280" cy="180" r="5"/>
+        <circle class="circuit-node n4" cx="20" cy="180" r="5"/>
+        <text class="circuit-label" x="230" y="195">OUT</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="progetti">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">01 / PROGETTI</div>
+        <h2>Lavori selezionati</h2>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <span class="project-tag">QUADRI ELETTRICI</span>
+        <h3>Quadro BT per linea produttiva</h3>
+        <p>Progettazione e dimensionamento quadro di distribuzione bassa tensione per impianto industriale, conforme CEI 61439.</p>
+        <div class="project-specs">
+          <div>Potenza: <span>250 kW</span></div>
+          <div>Norma: <span>CEI 61439-1</span></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">AUTOMAZIONE</span>
+        <h3>Sistema di controllo PLC</h3>
+        <p>Sviluppo logica di controllo e supervisione per linea di confezionamento automatizzata, con interfaccia SCADA.</p>
+        <div class="project-specs">
+          <div>PLC: <span>Siemens S7</span></div>
+          <div>I/O: <span>128 punti</span></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">ILLUMINOTECNICA</span>
+        <h3>Impianto illuminazione capannone</h3>
+        <p>Calcolo illuminotecnico e progetto impianto LED per capannone industriale 2.400 m², conforme EN 12464-1.</p>
+        <div class="project-specs">
+          <div>Em: <span>300 lx</span></div>
+          <div>Risparmio: <span>-42% energia</span></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">FOTOVOLTAICO</span>
+        <h3>Impianto FV commerciale 100 kWp</h3>
+        <p>Progettazione elettrica impianto fotovoltaico su copertura industriale, dimensionamento stringhe e protezioni.</p>
+        <div class="project-specs">
+          <div>Potenza: <span>100 kWp</span></div>
+          <div>Inverter: <span>3 stringa</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="competenze">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">02 / COMPETENZE</div>
+        <h2>Aree tecniche</h2>
+      </div>
+    </div>
+
+    <table class="specs-table">
+      <tr>
+        <td>Progettazione CAD</td>
+        <td>
+          AutoCAD Electrical, SPAC Automazione
+          <div class="bar-track"><div class="bar-fill" style="width: 90%"></div></div>
+        </td>
+      </tr>
+      <tr>
+        <td>Normativa CEI/EN</td>
+        <td>
+          Bassa tensione, quadri, illuminotecnica
+          <div class="bar-track"><div class="bar-fill" style="width: 85%"></div></div>
+        </td>
+      </tr>
+      <tr>
+        <td>Automazione PLC</td>
+        <td>
+          Siemens TIA Portal, logiche di controllo
+          <div class="bar-track"><div class="bar-fill" style="width: 75%"></div></div>
+        </td>
+      </tr>
+      <tr>
+        <td>Calcolo elettrico</td>
+        <td>
+          Dimensionamento cavi, protezioni, cortocircuito
+          <div class="bar-track"><div class="bar-fill" style="width: 88%"></div></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="contatti">
+  <div class="wrap">
+    <div class="contact-panel">
+      <h2>Parliamo del tuo progetto</h2>
+      <p>Disponibile per collaborazioni e nuove opportunità.</p>
+      <div class="contact-links">
+        <a href="mailto:nome@email.com" class="btn btn-primary">nome@email.com</a>
+        <a href="https://linkedin.com" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Nome Cognome — Ingegnere Elettrico
+</footer>
+
 </body>
 </html>
