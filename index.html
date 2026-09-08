@@ -90,16 +90,14 @@
   /* the same power line, running faintly behind the opening section */
   .powerline-bg {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 30px;
+    inset: 0;
     z-index: 0;
-    color: rgba(17,19,24,0.075);
+    color: rgba(17,19,24,0.11);
     line-height: 0;
     pointer-events: none;
+    overflow: hidden;
   }
-  .powerline-bg svg { display: block; width: 100%; height: 430px; }
-  @media (max-width: 760px) { .powerline-bg svg { height: 260px; } }
+  .powerline-bg svg { display: block; width: 100%; height: 100%; }
 
   .split {
     display: grid;
@@ -538,20 +536,6 @@
   }
   @media (max-width: 620px) { .powerline svg { height: 120px; } }
 
-  /* a single, more present pylon standing to the left of the copy */
-  .pylon-accent {
-    position: absolute;
-    left: max(8px, calc((100% - 1080px) / 2 - 168px));
-    top: 96px;
-    width: 152px;
-    z-index: 0;
-    color: rgba(17,19,24,0.26);
-    line-height: 0;
-    pointer-events: none;
-  }
-  .pylon-accent svg { display: block; width: 100%; height: auto; }
-  @media (max-width: 1320px) { .pylon-accent { display: none; } }
-
   footer {
     text-align: center;
     padding: 30px 28px;
@@ -576,31 +560,6 @@
 </header>
 
 <section class="hero">
-  <div class="pylon-accent" aria-hidden="true">
-    <svg viewBox="-64 -152 128 170" shape-rendering="geometricPrecision"
-         xmlns="http://www.w3.org/2000/svg"
-         fill="none" stroke="currentColor" stroke-width="2.2"
-         stroke-linecap="round" stroke-linejoin="round"
-         vector-effect="non-scaling-stroke">
-      <path d="M-22 0 L-7 -130 M22 0 L7 -130"/>
-      <path d="M-18.3 -32 H18.3 M-14.4 -66 H14.4 M-10.9 -96 H10.9"/>
-      <path d="M-22 0 L14.4 -66 M22 0 L-14.4 -66" opacity="0.6"/>
-      <path d="M-18.3 -32 L10.9 -96 M18.3 -32 L-10.9 -96" opacity="0.6"/>
-      <path d="M-36 -78 H36 M-26 -108 H26"/>
-      <path d="M-36 -78 v8 M36 -78 v8 M-26 -108 v7 M26 -108 v7"/>
-      <path d="M-7 -130 L0 -141 L7 -130"/>
-      <path d="M-64 0 H64" opacity="0.45"/>
-      <g stroke-width="1.6" opacity="0.75">
-        <path d="M0 -141 Q34 -132 68 -128"/>
-        <path d="M26 -101 Q46 -94 68 -90"/>
-        <path d="M36 -70 Q48 -64 68 -58"/>
-        <path d="M0 -141 Q-34 -132 -68 -128"/>
-        <path d="M-26 -101 Q-46 -94 -68 -90"/>
-        <path d="M-36 -70 Q-48 -64 -68 -58"/>
-      </g>
-    </svg>
-  </div>
-
   <div class="powerline-bg" aria-hidden="true">
     <svg viewBox="0 0 1200 470" preserveAspectRatio="xMidYMid slice"
          shape-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg">
@@ -619,23 +578,23 @@
       </defs>
       <g fill="none" stroke="currentColor" stroke-width="1.5"
          stroke-linecap="round" vector-effect="non-scaling-stroke">
-        <path d="M-160 190 Q70.0 230 300 190"/>
-        <path d="M-134 222 Q70.0 270 274 222"/>
-        <path d="M-124 252 Q70.0 308 264 252"/>
-        <path d="M300 190 Q530.0 230 760 190"/>
-        <path d="M326 222 Q530.0 270 734 222"/>
-        <path d="M336 252 Q530.0 308 724 252"/>
-        <path d="M760 190 Q990.0 230 1220 190"/>
-        <path d="M786 222 Q990.0 270 1194 222"/>
-        <path d="M796 252 Q990.0 308 1184 252"/>
+        <path d="M-130 200 Q100.0 240 330 200"/>
+        <path d="M-104 232 Q100.0 280 304 232"/>
+        <path d="M-94 262 Q100.0 318 294 262"/>
+        <path d="M330 200 Q560.0 240 790 200"/>
+        <path d="M356 232 Q560.0 280 764 232"/>
+        <path d="M366 262 Q560.0 318 754 262"/>
+        <path d="M790 200 Q1020.0 240 1250 200"/>
+        <path d="M816 232 Q1020.0 280 1224 232"/>
+        <path d="M826 262 Q1020.0 318 1214 262"/>
       </g>
       <g>
-        <use href="#pylon-b" x="-160" y="330"/>
-        <use href="#pylon-b" x="300" y="330"/>
-        <use href="#pylon-b" x="760" y="330"/>
-        <use href="#pylon-b" x="1220" y="330"/>
+        <use href="#pylon-b" x="-130" y="340"/>
+        <use href="#pylon-b" x="330" y="340"/>
+        <use href="#pylon-b" x="790" y="340"/>
+        <use href="#pylon-b" x="1250" y="340"/>
       </g>
-      <path d="M-160 330 H1420" fill="none" stroke="currentColor" stroke-width="1.5"
+      <path d="M-160 340 H1420" fill="none" stroke="currentColor" stroke-width="1.5"
             vector-effect="non-scaling-stroke" opacity="0.5"/>
     </svg>
   </div>
