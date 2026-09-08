@@ -97,8 +97,8 @@
     line-height: 0;
     pointer-events: none;
   }
-  .powerline-bg svg { display: block; width: 100%; height: 420px; }
-  @media (max-width: 760px) { .powerline-bg svg { height: 300px; } }
+  .powerline-bg svg { display: block; width: 100%; height: 430px; }
+  @media (max-width: 760px) { .powerline-bg svg { height: 260px; } }
 
   .split {
     display: grid;
@@ -533,9 +533,9 @@
   .powerline svg {
     display: block;
     width: 100%;
-    height: 170px;
+    height: 172px;
   }
-  @media (max-width: 620px) { .powerline svg { height: 128px; } }
+  @media (max-width: 620px) { .powerline svg { height: 120px; } }
 
   footer {
     text-align: center;
@@ -562,35 +562,41 @@
 
 <section class="hero">
   <div class="powerline-bg" aria-hidden="true">
-    <svg viewBox="0 0 1200 190" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 1200 470" preserveAspectRatio="xMidYMid slice"
+         shape-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg">
       <defs>
-      <g id="pylon-bg" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-        <path d="M-20 160 L-6 40 M20 160 L6 40"/>
-        <path d="M-16 125 L16 125 M-12 90 L12 90 M-9 62 L9 62"/>
-        <path d="M-20 160 L16 125 M20 160 L-16 125"/>
-        <path d="M-16 125 L12 90 M16 125 L-12 90"/>
-        <path d="M-12 90 L9 62 M12 90 L-9 62"/>
-        <path d="M-34 80 L34 80 M-24 55 L24 55"/>
-        <path d="M-6 40 L0 31 L6 40"/>
-        <path d="M-34 80 v6 M34 80 v6 M-24 55 v5 M24 55 v5"/>
+      <g id="pylon-b" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round"
+         vector-effect="non-scaling-stroke">
+        <path d="M-22 0 L-7 -130 M22 0 L7 -130"/>
+        <path d="M-18.3 -32 H18.3 M-14.4 -66 H14.4 M-10.9 -96 H10.9"/>
+        <path d="M-22 0 L14.4 -66 M22 0 L-14.4 -66" opacity="0.55"/>
+        <path d="M-18.3 -32 L10.9 -96 M18.3 -32 L-10.9 -96" opacity="0.55"/>
+        <path d="M-36 -78 H36 M-26 -108 H26"/>
+        <path d="M-36 -78 v7 M36 -78 v7 M-26 -108 v6 M26 -108 v6"/>
+        <path d="M-7 -130 L0 -140 L7 -130"/>
       </g>
       </defs>
-      <g fill="none" stroke="currentColor" stroke-width="1.6"
-         stroke-linecap="round">
-        <path d="M-116 60 Q100 118 316 60"/>
-      <path d="M364 60 Q580 118 796 60"/>
-      <path d="M844 60 Q1060 118 1276 60"/>
-      <path d="M-106 86 Q100 146 306 86"/>
-      <path d="M374 86 Q580 146 786 86"/>
-      <path d="M854 86 Q1060 146 1266 86"/>
+      <g fill="none" stroke="currentColor" stroke-width="1.5"
+         stroke-linecap="round" vector-effect="non-scaling-stroke">
+        <path d="M-160 190 Q70.0 230 300 190"/>
+        <path d="M-134 222 Q70.0 270 274 222"/>
+        <path d="M-124 252 Q70.0 308 264 252"/>
+        <path d="M300 190 Q530.0 230 760 190"/>
+        <path d="M326 222 Q530.0 270 734 222"/>
+        <path d="M336 252 Q530.0 308 724 252"/>
+        <path d="M760 190 Q990.0 230 1220 190"/>
+        <path d="M786 222 Q990.0 270 1194 222"/>
+        <path d="M796 252 Q990.0 308 1184 252"/>
       </g>
       <g>
-        <use href="#pylon-bg" x="-140"/>
-      <use href="#pylon-bg" x="340"/>
-      <use href="#pylon-bg" x="820"/>
-      <use href="#pylon-bg" x="1300"/>
+        <use href="#pylon-b" x="-160" y="330"/>
+        <use href="#pylon-b" x="300" y="330"/>
+        <use href="#pylon-b" x="760" y="330"/>
+        <use href="#pylon-b" x="1220" y="330"/>
       </g>
+      <path d="M-160 330 H1420" fill="none" stroke="currentColor" stroke-width="1.5"
+            vector-effect="non-scaling-stroke" opacity="0.5"/>
     </svg>
   </div>
 
@@ -785,43 +791,45 @@
 </section>
 
 <div class="powerline" aria-hidden="true">
-  <svg viewBox="0 0 1200 180" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 1200 186" preserveAspectRatio="xMidYMax slice"
+       shape-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <g id="pylon" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-        <path d="M-20 160 L-6 40 M20 160 L6 40"/>
-        <path d="M-16 125 L16 125 M-12 90 L12 90 M-9 62 L9 62"/>
-        <path d="M-20 160 L16 125 M20 160 L-16 125"/>
-        <path d="M-16 125 L12 90 M16 125 L-12 90"/>
-        <path d="M-12 90 L9 62 M12 90 L-9 62"/>
-        <path d="M-34 80 L34 80 M-24 55 L24 55"/>
-        <path d="M-6 40 L0 31 L6 40"/>
-        <path d="M-34 80 v6 M34 80 v6 M-24 55 v5 M24 55 v5"/>
+      <g id="pylon-f" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round"
+         vector-effect="non-scaling-stroke">
+        <path d="M-22 0 L-7 -130 M22 0 L7 -130"/>
+        <path d="M-18.3 -32 H18.3 M-14.4 -66 H14.4 M-10.9 -96 H10.9"/>
+        <path d="M-22 0 L14.4 -66 M22 0 L-14.4 -66" opacity="0.55"/>
+        <path d="M-18.3 -32 L10.9 -96 M18.3 -32 L-10.9 -96" opacity="0.55"/>
+        <path d="M-36 -78 H36 M-26 -108 H26"/>
+        <path d="M-36 -78 v7 M36 -78 v7 M-26 -108 v6 M26 -108 v6"/>
+        <path d="M-7 -130 L0 -140 L7 -130"/>
       </g>
     </defs>
-
-    <g fill="none" stroke="currentColor" stroke-width="1.6"
-       stroke-linecap="round" opacity="0.85">
-      <path d="M-76 60 Q90 106 256 60"/>
-      <path d="M304 60 Q470 106 636 60"/>
-      <path d="M684 60 Q850 106 1016 60"/>
-      <path d="M1064 60 Q1230 106 1396 60"/>
-      <path d="M-66 86 Q90 132 246 86"/>
-      <path d="M314 86 Q470 132 626 86"/>
-      <path d="M694 86 Q850 132 1006 86"/>
-      <path d="M1074 86 Q1230 132 1386 86"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.5"
+       stroke-linecap="round" vector-effect="non-scaling-stroke" opacity="0.9">
+        <path d="M-100 28 Q90.0 62 280 28"/>
+        <path d="M-74 60 Q90.0 100 254 60"/>
+        <path d="M-64 90 Q90.0 136 244 90"/>
+        <path d="M280 28 Q470.0 62 660 28"/>
+        <path d="M306 60 Q470.0 100 634 60"/>
+        <path d="M316 90 Q470.0 136 624 90"/>
+        <path d="M660 28 Q850.0 62 1040 28"/>
+        <path d="M686 60 Q850.0 100 1014 60"/>
+        <path d="M696 90 Q850.0 136 1004 90"/>
+        <path d="M1040 28 Q1230.0 62 1420 28"/>
+        <path d="M1066 60 Q1230.0 100 1394 60"/>
+        <path d="M1076 90 Q1230.0 136 1384 90"/>
     </g>
-
     <g>
-      <use href="#pylon" x="-100"/>
-      <use href="#pylon" x="280"/>
-      <use href="#pylon" x="660"/>
-      <use href="#pylon" x="1040"/>
-      <use href="#pylon" x="1420"/>
+        <use href="#pylon-f" x="-100" y="168"/>
+        <use href="#pylon-f" x="280" y="168"/>
+        <use href="#pylon-f" x="660" y="168"/>
+        <use href="#pylon-f" x="1040" y="168"/>
+        <use href="#pylon-f" x="1420" y="168"/>
     </g>
-
-    <path d="M-120 160 H1520" fill="none" stroke="currentColor"
-          stroke-width="1.5" opacity="0.5"/>
+    <path d="M-140 168 H1540" fill="none" stroke="currentColor" stroke-width="1.5"
+          vector-effect="non-scaling-stroke" opacity="0.45"/>
   </svg>
 </div>
 
