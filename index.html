@@ -537,6 +537,20 @@
   }
   @media (max-width: 620px) { .powerline svg { height: 120px; } }
 
+  /* a single, more present pylon standing to the left of the copy */
+  .pylon-accent {
+    position: absolute;
+    left: max(8px, calc((100% - 1080px) / 2 - 168px));
+    top: 96px;
+    width: 152px;
+    z-index: 0;
+    color: rgba(17,19,24,0.26);
+    line-height: 0;
+    pointer-events: none;
+  }
+  .pylon-accent svg { display: block; width: 100%; height: auto; }
+  @media (max-width: 1320px) { .pylon-accent { display: none; } }
+
   footer {
     text-align: center;
     padding: 30px 28px;
@@ -561,6 +575,31 @@
 </header>
 
 <section class="hero">
+  <div class="pylon-accent" aria-hidden="true">
+    <svg viewBox="-64 -152 128 170" shape-rendering="geometricPrecision"
+         xmlns="http://www.w3.org/2000/svg"
+         fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round"
+         vector-effect="non-scaling-stroke">
+      <path d="M-22 0 L-7 -130 M22 0 L7 -130"/>
+      <path d="M-18.3 -32 H18.3 M-14.4 -66 H14.4 M-10.9 -96 H10.9"/>
+      <path d="M-22 0 L14.4 -66 M22 0 L-14.4 -66" opacity="0.6"/>
+      <path d="M-18.3 -32 L10.9 -96 M18.3 -32 L-10.9 -96" opacity="0.6"/>
+      <path d="M-36 -78 H36 M-26 -108 H26"/>
+      <path d="M-36 -78 v8 M36 -78 v8 M-26 -108 v7 M26 -108 v7"/>
+      <path d="M-7 -130 L0 -141 L7 -130"/>
+      <path d="M-64 0 H64" opacity="0.45"/>
+      <g stroke-width="1.6" opacity="0.75">
+        <path d="M0 -141 Q34 -132 68 -128"/>
+        <path d="M26 -101 Q46 -94 68 -90"/>
+        <path d="M36 -70 Q48 -64 68 -58"/>
+        <path d="M0 -141 Q-34 -132 -68 -128"/>
+        <path d="M-26 -101 Q-46 -94 -68 -90"/>
+        <path d="M-36 -70 Q-48 -64 -68 -58"/>
+      </g>
+    </svg>
+  </div>
+
   <div class="powerline-bg" aria-hidden="true">
     <svg viewBox="0 0 1200 470" preserveAspectRatio="xMidYMid slice"
          shape-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg">
