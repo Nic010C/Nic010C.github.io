@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nicolò Calabrese — Ingegnere Elettrico</title>
+<title>Nome Cognome — Ingegnere Elettrico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,8 +15,12 @@
     --accent: #3B5BFF;
     --line: #E8EAF0;
     --surface: #F5F6FA;
-    --folder-back: #FFD54A;
-    --folder-front: #FFC61E;
+    --folder-back: #E8A73C;
+    --folder-front: #F0B840;
+    --tab-1: #3B5BFF;
+    --tab-2: #FF6B4A;
+    --tab-3: #14B88A;
+    --tab-4: #A855F7;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -72,9 +76,19 @@
   @media (max-width: 640px) { .nav-links { display: none; } }
 
   .hero {
-    padding: 90px 24px 20px;
-    text-align: center;
+    padding: 70px 24px 20px;
   }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: center;
+    text-align: left;
+  }
+  @media (max-width: 760px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  }
+
   .eyebrow {
     font-size: 0.85rem;
     color: var(--accent);
@@ -83,18 +97,66 @@
   }
   h1 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.1rem);
+    font-size: clamp(2rem, 4.2vw, 2.9rem);
     font-weight: 700;
-    line-height: 1.12;
+    line-height: 1.14;
     letter-spacing: -0.01em;
-    max-width: 18ch;
-    margin: 0 auto 20px;
+    margin-bottom: 20px;
   }
   .hero p.lead {
     color: var(--ink-soft);
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     max-width: 46ch;
-    margin: 0 auto;
+  }
+  @media (max-width: 760px) { .hero p.lead { margin: 0 auto; } }
+
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 760px) { .hero-cta { justify-content: center; } }
+
+  .hero-photo { display: flex; justify-content: center; }
+
+  .photo-frame {
+    position: relative;
+    width: min(260px, 60vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--surface);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 3px var(--accent), 0 20px 40px rgba(17,19,24,0.14);
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-placeholder {
+    display: none;
+    position: absolute;
+    inset: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--ink-soft);
+    background: var(--surface);
+    text-align: center;
+    padding: 12px;
+  }
+  .photo-placeholder span {
+    font-size: 0.72rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .photo-frame-small {
+    width: 220px;
+    box-shadow: 0 0 0 3px var(--accent), 0 14px 30px rgba(17,19,24,0.12);
   }
 
   .hint {
@@ -113,160 +175,207 @@
     50% { transform: translateY(5px); }
   }
 
+  /* ===== About / Chi sono ===== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 52px;
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  }
+
+  .about-content h2 { margin-bottom: 18px; }
+  .about-text {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    max-width: 62ch;
+  }
+  @media (max-width: 700px) { .about-text { max-width: 100%; } }
+
+  .about-facts {
+    display: flex;
+    gap: 40px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 700px) { .about-facts { justify-content: center; } }
+
+  .fact { display: flex; flex-direction: column; gap: 4px; }
+  .fact-num { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .fact-label { font-size: 0.8rem; color: var(--ink-soft); }
+
   .folder-zone {
-    padding: 20px 24px 140px;
+    padding: 40px 24px 100px;
     display: flex;
     justify-content: center;
   }
 
+  /* Stage: a closed folder body. Tabs poke out of the top edge.
+     Hovering/focusing a tab slides its sheet up from behind the folder. */
   .folder-stage {
     position: relative;
-    width: min(560px, 88vw);
-    aspect-ratio: 1.35 / 1;
-    cursor: pointer;
-    perspective: 1600px;
+    width: min(420px, 84vw);
   }
 
-  .sheets {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
+  .binder {
+    position: relative;
+  }
+
+  /* sheets live behind the folder, stacked flush, revealed only on lift */
+  .sheet-well {
+    position: relative;
+    height: 300px;
   }
 
   .sheet {
     position: absolute;
-    left: 50%;
-    top: 46%;
-    width: 78%;
-    aspect-ratio: 0.72 / 1;
+    left: 4%;
+    right: 4%;
+    top: 0;
+    height: 92%;
     background: #fff;
+    border-radius: 8px 8px 4px 4px;
     border: 1px solid var(--line);
-    border-radius: 6px;
-    box-shadow: 0 10px 30px rgba(17,19,24,0.08);
-    padding: 20px 22px;
-    transform: translate(-50%, -46%) rotate(0deg);
-    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    box-shadow: 0 4px 10px rgba(17,19,24,0.06);
+    padding: 22px 24px;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    transform: translateY(14px);
+    opacity: 0;
+    z-index: 1;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, box-shadow 0.4s ease;
+    pointer-events: none;
+  }
+
+  /* lifted state: slides up out from behind the folder front, becomes visible */
+  .sheet.lifted {
+    transform: translateY(-118px);
+    opacity: 1;
+    box-shadow: 0 26px 46px rgba(17,19,24,0.20);
+    z-index: 3;
+    pointer-events: auto;
   }
 
   .sheet .tag {
     font-size: 0.7rem;
     font-weight: 600;
-    color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 0.03em;
     margin-bottom: 10px;
   }
+  .sheet[data-index="0"] .tag { color: var(--tab-1); }
+  .sheet[data-index="1"] .tag { color: var(--tab-2); }
+  .sheet[data-index="2"] .tag { color: var(--tab-3); }
+  .sheet[data-index="3"] .tag { color: var(--tab-4); }
+
   .sheet h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 8px;
     line-height: 1.25;
   }
   .sheet p {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     color: var(--ink-soft);
-    line-height: 1.45;
+    line-height: 1.5;
   }
   .sheet .spec {
     margin-top: auto;
-    padding-top: 12px;
+    padding-top: 14px;
     border-top: 1px solid var(--line);
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     color: var(--ink-soft);
   }
   .sheet .spec b { color: var(--ink); }
 
-  .sheet:nth-child(1) { z-index: 4; }
-  .sheet:nth-child(2) { z-index: 3; }
-  .sheet:nth-child(3) { z-index: 2; }
-  .sheet:nth-child(4) { z-index: 1; }
-
-  .folder-stage.open .sheet:nth-child(1) {
-    transform: translate(calc(-50% - 128px), -74%) rotate(-11deg);
-  }
-  .folder-stage.open .sheet:nth-child(2) {
-    transform: translate(calc(-50% - 42px), -80%) rotate(-3deg);
-  }
-  .folder-stage.open .sheet:nth-child(3) {
-    transform: translate(calc(-50% + 42px), -80%) rotate(4deg);
-  }
-  .folder-stage.open .sheet:nth-child(4) {
-    transform: translate(calc(-50% + 128px), -74%) rotate(11deg);
-  }
-  .folder-stage.open .sheet:hover {
-    transform: translate(-50%, -92%) rotate(0deg) scale(1.04) !important;
-    box-shadow: 0 20px 40px rgba(17,19,24,0.16);
-    z-index: 10 !important;
+  /* Tabs: poke out above the closed folder's top edge, like index tabs on a hanging folder */
+  .tabs {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    padding: 0 22px;
+    gap: 14px;
   }
 
-  .folder {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
+  .tab {
+    width: 64px;
+    height: 30px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 -2px 6px rgba(17,19,24,0.08);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s ease;
+  }
+  .tab:hover, .tab:focus-visible, .tab.active {
+    transform: translateY(-6px);
+  }
+
+  .tab-1 { background: var(--tab-1); }
+  .tab-2 { background: var(--tab-2); }
+  .tab-3 { background: var(--tab-3); }
+  .tab-4 { background: var(--tab-4); }
+
+  .tab-num {
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* the closed folder body: back panel + front flap, sits above the sheets */
+  .folder-body {
+    position: relative;
+    z-index: 2;
+    margin-top: -2px;
   }
 
   .folder-back {
-    position: absolute;
-    left: 4%;
-    right: 4%;
-    bottom: 6%;
-    top: 30%;
+    height: 210px;
     background: var(--folder-back);
-    border-radius: 10px 10px 4px 4px;
-    box-shadow: 0 18px 40px rgba(17,19,24,0.10);
-  }
-  .folder-back::before {
-    content: '';
-    position: absolute;
-    top: -13%;
-    left: 0;
-    width: 42%;
-    height: 20%;
-    background: var(--folder-back);
-    border-radius: 10px 16px 0 0;
+    border-radius: 4px 4px 14px 14px;
+    box-shadow: 0 22px 44px rgba(17,19,24,0.14);
   }
 
   .folder-front {
     position: absolute;
-    left: 0%;
-    right: 0%;
-    bottom: 0%;
-    top: 38%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 76%;
     background: var(--folder-front);
-    border-radius: 10px;
-    box-shadow: 0 10px 24px rgba(17,19,24,0.14);
-    transform-origin: bottom center;
-    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 4px 4px 14px 14px;
+    box-shadow: 0 10px 22px rgba(17,19,24,0.10), inset 0 1px 0 rgba(255,255,255,0.25);
   }
 
-  .folder-stage.open .folder-front {
-    transform: rotateX(-58deg) translateY(-4%);
-  }
-
-  .folder-label {
+  .folder-brand {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 26px;
+    text-align: center;
     font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #6B4E00;
-    opacity: 0.8;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: opacity 0.3s ease;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: rgba(17,19,24,0.35);
   }
-  .folder-stage.open .folder-label { opacity: 0; }
 
-  @media (max-width: 640px) {
-    .folder-stage.open .sheet:nth-child(1) { transform: translate(calc(-50% - 70px), -80%) rotate(-9deg) scale(0.82); }
-    .folder-stage.open .sheet:nth-child(2) { transform: translate(calc(-50% - 24px), -84%) rotate(-3deg) scale(0.82); }
-    .folder-stage.open .sheet:nth-child(3) { transform: translate(calc(-50% + 24px), -84%) rotate(3deg) scale(0.82); }
-    .folder-stage.open .sheet:nth-child(4) { transform: translate(calc(-50% + 70px), -80%) rotate(9deg) scale(0.82); }
+  @media (max-width: 480px) {
+    .tabs { padding: 0 14px; gap: 8px; }
+    .tab { width: 52px; height: 26px; }
+    .tab-num { font-size: 0.68rem; }
+    .sheet.lifted { transform: translateY(-96px); }
+    .sheet h3 { font-size: 1rem; }
+    .sheet p { font-size: 0.8rem; }
   }
 
   .section { padding: 70px 24px 100px; border-top: 1px solid var(--line); }
@@ -336,60 +445,125 @@
 
 <header>
   <nav>
-    <div class="logo display">Calabrese Nicolò</div>
+    <div class="logo display">N. Cognome</div>
     <div class="nav-links">
       <a href="#progetti">Progetti</a>
       <a href="#competenze">Competenze</a>
+      <a href="#chisono">Chi sono</a>
       <a href="#contatti">Contatti</a>
     </div>
   </nav>
 </header>
 
 <section class="hero">
-  <div class="eyebrow">Ingegnere Elettrico</div>
-  <h1 class="display">Progettare per passione.</h1>
-  <p class="lead">Quadri elettrici, automazione e impiantistica industriale, dal calcolo del carico alla messa in servizio.</p>
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <div class="eyebrow">Ingegnere Elettrico</div>
+      <h1 class="display">Progetto sistemi elettrici che funzionano al primo avvio.</h1>
+      <p class="lead">Quadri elettrici, automazione e impiantistica industriale, dal calcolo del carico alla messa in servizio.</p>
+      <div class="hero-cta">
+        <a href="#progetti" class="btn btn-primary">Vedi i progetti</a>
+        <a href="#contatti" class="btn btn-ghost">Contattami</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-frame">
+        <img src="foto-profilo.jpg" alt="Foto profilo di Nome Cognome" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+          <span>Aggiungi foto-profilo.jpg</span>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="hint">
-    <span>Passa il mouse sulla cartella per vedere i progetti</span>
+    <span>Passa il mouse sulle linguette per aprire i progetti</span>
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
   </div>
 </section>
 
 <section class="folder-zone" id="progetti">
   <div class="folder-stage" id="folderStage">
-    <div class="sheets">
-      <div class="sheet">
-        <div class="tag">Quadri elettrici</div>
-        <h3>Quadro BT linea produttiva</h3>
-        <p>Progettazione e dimensionamento quadro di distribuzione bassa tensione, conforme CEI 61439.</p>
-        <div class="spec">Potenza: <b>250 kW</b></div>
+    <div class="binder">
+
+      <div class="sheet-well">
+        <div class="sheet" data-index="0">
+          <div class="tag">Quadri elettrici</div>
+          <h3>Quadro BT linea produttiva</h3>
+          <p>Progettazione e dimensionamento quadro di distribuzione bassa tensione, conforme CEI 61439.</p>
+          <div class="spec">Potenza: <b>250 kW</b></div>
+        </div>
+
+        <div class="sheet" data-index="1">
+          <div class="tag">Automazione</div>
+          <h3>Sistema di controllo PLC</h3>
+          <p>Logica di controllo e supervisione per linea di confezionamento, interfaccia SCADA.</p>
+          <div class="spec">I/O: <b>128 punti</b></div>
+        </div>
+
+        <div class="sheet" data-index="2">
+          <div class="tag">Illuminotecnica</div>
+          <h3>Impianto illuminazione capannone</h3>
+          <p>Calcolo illuminotecnico e progetto LED per capannone industriale, EN 12464-1.</p>
+          <div class="spec">Superficie: <b>2.400 m²</b></div>
+        </div>
+
+        <div class="sheet" data-index="3">
+          <div class="tag">Fotovoltaico</div>
+          <h3>Impianto FV commerciale</h3>
+          <p>Progettazione elettrica impianto fotovoltaico su copertura industriale.</p>
+          <div class="spec">Potenza: <b>100 kWp</b></div>
+        </div>
       </div>
-      <div class="sheet">
-        <div class="tag">Automazione</div>
-        <h3>Sistema di controllo PLC</h3>
-        <p>Logica di controllo e supervisione per linea di confezionamento, interfaccia SCADA.</p>
-        <div class="spec">I/O: <b>128 punti</b></div>
+
+      <div class="tabs">
+        <div class="tab tab-1" data-target="0" tabindex="0"><span class="tab-num">01</span></div>
+        <div class="tab tab-2" data-target="1" tabindex="0"><span class="tab-num">02</span></div>
+        <div class="tab tab-3" data-target="2" tabindex="0"><span class="tab-num">03</span></div>
+        <div class="tab tab-4" data-target="3" tabindex="0"><span class="tab-num">04</span></div>
       </div>
-      <div class="sheet">
-        <div class="tag">Illuminotecnica</div>
-        <h3>Impianto illuminazione capannone</h3>
-        <p>Calcolo illuminotecnico e progetto LED per capannone industriale, EN 12464-1.</p>
-        <div class="spec">Superficie: <b>2.400 m²</b></div>
+
+      <div class="folder-body">
+        <div class="folder-back"></div>
+        <div class="folder-front"></div>
+        <div class="folder-brand">Progetti</div>
       </div>
-      <div class="sheet">
-        <div class="tag">Fotovoltaico</div>
-        <h3>Impianto FV commerciale</h3>
-        <p>Progettazione elettrica impianto fotovoltaico su copertura industriale.</p>
-        <div class="spec">Potenza: <b>100 kWp</b></div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="chisono">
+  <div class="wrap about-grid">
+    <div class="about-photo">
+      <div class="photo-frame photo-frame-small">
+        <img src="foto-profilo.jpg" alt="Foto profilo di Nome Cognome" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+        </div>
       </div>
     </div>
-
-    <div class="folder">
-      <div class="folder-back"></div>
-      <div class="folder-front">
-        <div class="folder-label">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
-          Progetti
+    <div class="about-content">
+      <div class="section-eyebrow">Chi sono</div>
+      <h2 class="display">Nome Cognome</h2>
+      <p class="about-text">
+        Sono un ingegnere elettrico con esperienza nella progettazione di quadri elettrici, sistemi di automazione e impianti industriali. Mi occupo dell'intero ciclo di progetto: dal dimensionamento dei carichi alla scelta dei componenti, dalla stesura degli schemi alla messa in servizio, sempre nel rispetto delle normative CEI ed EN vigenti.
+      </p>
+      <p class="about-text">
+        Lavoro con software CAE come SPAC Automazione e curo con particolare attenzione la documentazione tecnica e la conformità normativa di ogni impianto.
+      </p>
+      <div class="about-facts">
+        <div class="fact">
+          <span class="fact-num display">5+</span>
+          <span class="fact-label">Anni di esperienza</span>
+        </div>
+        <div class="fact">
+          <span class="fact-num display">30+</span>
+          <span class="fact-label">Progetti seguiti</span>
+        </div>
+        <div class="fact">
+          <span class="fact-num display">CEI</span>
+          <span class="fact-label">61439 · 64-8</span>
         </div>
       </div>
     </div>
@@ -429,23 +603,42 @@
       <h2 class="display">Parliamo del tuo progetto</h2>
       <p>Disponibile per collaborazioni e nuove opportunità.</p>
       <div class="contact-links">
-        <a href="mailto:nome@email.com" class="btn btn-primary">nicolocalabrese2005@gmail.com</a>
+        <a href="mailto:nome@email.com" class="btn btn-primary">nome@email.com</a>
         <a href="https://linkedin.com" class="btn btn-ghost">LinkedIn</a>
       </div>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Nicolò Calabrese — Ingegnere Elettrico</footer>
+<footer>© 2026 Nome Cognome — Ingegnere Elettrico</footer>
 
 <script>
-  const stage = document.getElementById('folderStage');
-  const open = () => stage.classList.add('open');
-  const close = () => stage.classList.remove('open');
-  stage.addEventListener('mouseenter', open);
-  stage.addEventListener('mouseleave', close);
-  stage.addEventListener('click', () => stage.classList.toggle('open'));
-  stage.addEventListener('touchstart', () => stage.classList.toggle('open'), { passive: true });
+  const tabs = document.querySelectorAll('.tab');
+  const sheets = document.querySelectorAll('.sheet');
+
+  function lift(index) {
+    sheets.forEach(s => s.classList.toggle('lifted', s.dataset.index === String(index)));
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.target === String(index)));
+  }
+  function reset() {
+    sheets.forEach(s => s.classList.remove('lifted'));
+    tabs.forEach(t => t.classList.remove('active'));
+  }
+
+  tabs.forEach(tab => {
+    const idx = tab.dataset.target;
+    tab.addEventListener('mouseenter', () => lift(idx));
+    tab.addEventListener('mouseleave', reset);
+    tab.addEventListener('focus', () => lift(idx));
+    tab.addEventListener('blur', reset);
+    tab.addEventListener('click', () => lift(idx));
+    tab.addEventListener('touchstart', () => lift(idx), { passive: true });
+  });
+
+  sheets.forEach(sheet => {
+    sheet.addEventListener('mouseenter', () => lift(sheet.dataset.index));
+    sheet.addEventListener('mouseleave', reset);
+  });
 </script>
 
 </body>
