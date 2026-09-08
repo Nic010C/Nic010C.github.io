@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nome Cognome — Ingegnere Elettrico</title>
+<title>Nicolò Calabrese — Ingegneria Elettrica</title>
+<meta name="description" content="Portfolio di Nicolò Calabrese, progettista e disegnatore elettrico. Quadri industriali, impianti BT/MT, automazione PLC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,9 +15,7 @@
     --ink-soft: #6B7280;
     --accent: #3B5BFF;
     --line: #E8EAF0;
-    --surface: #F5F6FA;
-    --folder-back: #E8A73C;
-    --folder-front: #F0B840;
+    --surface: #F7F8FC;
     --tab-1: #3B5BFF;
     --tab-2: #FF6B4A;
     --tab-3: #14B88A;
@@ -31,6 +30,7 @@
     color: var(--ink);
     font-family: 'Inter', sans-serif;
     line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
 
   .display { font-family: 'Space Grotesk', sans-serif; }
@@ -41,74 +41,97 @@
 
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--accent); color: #fff; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 
+  #progetti, #chisono, #competenze, #contatti { scroll-margin-top: 92px; }
+
+  /* ===================== NAV ===================== */
   header {
     position: sticky;
     top: 0;
-    z-index: 50;
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(8px);
+    z-index: 60;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 24px;
-    max-width: 1100px;
+    padding: 18px 28px;
+    max-width: 1080px;
     margin: 0 auto;
   }
   .logo {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
   }
+  .logo span { color: var(--accent); }
   .nav-links {
     display: flex;
-    gap: 32px;
-    font-size: 0.92rem;
+    gap: 30px;
+    font-size: 0.9rem;
     color: var(--ink-soft);
   }
+  .nav-links a { transition: color 0.15s ease; }
   .nav-links a:hover { color: var(--accent); }
-  @media (max-width: 640px) { .nav-links { display: none; } }
+  @media (max-width: 700px) { .nav-links { gap: 18px; font-size: 0.82rem; } }
+  @media (max-width: 460px) { .nav-links a:nth-child(3) { display: none; } }
 
-  .hero {
-    padding: 70px 24px 20px;
-  }
-  .hero-inner {
+  /* ===================== HERO ===================== */
+  .hero { padding: 72px 0 88px; }
+
+  .split {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 48px;
-    align-items: center;
-    text-align: left;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: start;
   }
   @media (max-width: 760px) {
-    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .split { grid-template-columns: 1fr; gap: 44px; }
   }
 
   .eyebrow {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--accent);
     font-weight: 600;
+    letter-spacing: 0.02em;
     margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
+  .eyebrow::before {
+    content: '';
+    width: 22px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
   h1 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2rem, 4.2vw, 2.9rem);
+    font-size: clamp(2.1rem, 4.4vw, 3.1rem);
     font-weight: 700;
-    line-height: 1.14;
-    letter-spacing: -0.01em;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
     margin-bottom: 20px;
   }
-  .hero p.lead {
-    color: var(--ink-soft);
-    font-size: 1.05rem;
-    max-width: 46ch;
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
   }
-  @media (max-width: 760px) { .hero p.lead { margin: 0 auto; } }
+
+  .lead {
+    color: var(--ink-soft);
+    font-size: 1.04rem;
+    line-height: 1.65;
+    max-width: 42ch;
+  }
 
   .hero-cta {
     display: flex;
@@ -116,207 +139,198 @@
     margin-top: 28px;
     flex-wrap: wrap;
   }
-  @media (max-width: 760px) { .hero-cta { justify-content: center; } }
 
-  .hero-photo { display: flex; justify-content: center; }
+  .btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.93; }
+  .btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* credential chips under the hero copy */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 30px;
+  }
+  .chip {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 100px;
+  }
+
+  /* ===================== ABOUT ===================== */
+  .about {
+    margin-top: 60px;
+    padding-top: 42px;
+    border-top: 1px solid var(--line);
+  }
+  .about-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+  .about-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .about-role { font-size: 0.85rem; color: var(--ink-soft); margin-top: 2px; }
 
   .photo-frame {
     position: relative;
-    width: min(260px, 60vw);
-    aspect-ratio: 1;
+    width: 88px;
+    height: 88px;
+    flex-shrink: 0;
     border-radius: 50%;
     overflow: hidden;
     background: var(--surface);
     border: 3px solid #fff;
-    box-shadow: 0 0 0 3px var(--accent), 0 20px 40px rgba(17,19,24,0.14);
+    box-shadow: 0 0 0 2px var(--accent), 0 10px 24px rgba(17,19,24,0.14);
   }
-  .photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .photo-placeholder {
     display: none;
     position: absolute;
     inset: 0;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     color: var(--ink-soft);
     background: var(--surface);
-    text-align: center;
-    padding: 12px;
-  }
-  .photo-placeholder span {
-    font-size: 0.72rem;
-    font-family: 'Space Grotesk', sans-serif;
   }
 
-  .photo-frame-small {
-    width: 220px;
-    box-shadow: 0 0 0 3px var(--accent), 0 14px 30px rgba(17,19,24,0.12);
-  }
-
-  .hint {
-    text-align: center;
-    color: var(--ink-soft);
-    font-size: 0.88rem;
-    margin-top: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  .hint svg { animation: bob 1.8s ease-in-out infinite; }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(5px); }
-  }
-
-  /* ===== About / Chi sono ===== */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 52px;
-    align-items: start;
-  }
-  @media (max-width: 700px) {
-    .about-grid { grid-template-columns: 1fr; text-align: center; justify-items: center; }
-  }
-
-  .about-content h2 { margin-bottom: 18px; }
   .about-text {
     color: var(--ink-soft);
-    font-size: 0.98rem;
-    line-height: 1.7;
-    margin-bottom: 16px;
-    max-width: 62ch;
+    font-size: 0.96rem;
+    line-height: 1.72;
+    max-width: 58ch;
+    margin-bottom: 14px;
   }
-  @media (max-width: 700px) { .about-text { max-width: 100%; } }
 
   .about-facts {
-    display: flex;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 30px;
     margin-top: 28px;
-    flex-wrap: wrap;
+    justify-content: start;
   }
-  @media (max-width: 700px) { .about-facts { justify-content: center; } }
+  @media (max-width: 560px) { .about-facts { grid-template-columns: 1fr 1fr; gap: 22px; } }
 
-  .fact { display: flex; flex-direction: column; gap: 4px; }
-  .fact-num { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
-  .fact-label { font-size: 0.8rem; color: var(--ink-soft); }
+  .fact { display: flex; flex-direction: column; gap: 3px; }
+  .fact-key {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .fact-label { font-size: 0.76rem; color: var(--ink-soft); }
 
-  .folder-zone {
-    padding: 40px 24px 100px;
+  /* ===================== FOLDER ===================== */
+  .split-right {
+    position: sticky;
+    top: 100px;
+    z-index: 5;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
+  @media (max-width: 760px) { .split-right { position: static; } }
 
-  /* Stage: a closed folder body. Tabs poke out of the top edge.
-     Hovering/focusing a tab slides its sheet up from behind the folder. */
   .folder-stage {
     position: relative;
-    width: min(420px, 84vw);
+    width: min(392px, 88vw);
+    height: 336px;
   }
 
-  .binder {
-    position: relative;
+  .folder-back {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 248px;
+    z-index: 1;
+    background: linear-gradient(180deg, #FFD877 0%, #FFC64F 100%);
+    border-radius: 12px 12px 14px 14px;
   }
-
-  /* sheets live behind the folder, stacked flush, revealed only on lift */
-  .sheet-well {
-    position: relative;
-    height: 300px;
+  .folder-back::before {
+    content: '';
+    position: absolute;
+    top: -17px;
+    left: 0;
+    width: 44%;
+    height: 20px;
+    background: #FFD877;
+    border-radius: 10px 12px 0 0;
   }
 
   .sheet {
     position: absolute;
-    left: 4%;
-    right: 4%;
-    top: 0;
-    height: 92%;
+    left: 7%;
+    right: 7%;
+    bottom: 16px;
+    height: 214px;
+    z-index: 2;
     background: #fff;
-    border-radius: 8px 8px 4px 4px;
+    border-radius: 6px;
     border: 1px solid var(--line);
-    box-shadow: 0 4px 10px rgba(17,19,24,0.06);
-    padding: 22px 24px;
+    box-shadow: 0 2px 6px rgba(17,19,24,0.08);
+    padding: 20px 22px 18px;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
-    transform: translateY(14px);
-    opacity: 0;
-    z-index: 1;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, box-shadow 0.4s ease;
-    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease;
   }
-
-  /* lifted state: slides up out from behind the folder front, becomes visible */
+  .sheet > *:not(.tab) { opacity: 0; transition: opacity 0.18s ease; }
+  .sheet.lifted > *:not(.tab) { opacity: 1; transition: opacity 0.35s ease 0.16s; }
   .sheet.lifted {
-    transform: translateY(-118px);
-    opacity: 1;
-    box-shadow: 0 26px 46px rgba(17,19,24,0.20);
-    z-index: 3;
-    pointer-events: auto;
-  }
-
-  .sheet .tag {
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-bottom: 10px;
-  }
-  .sheet[data-index="0"] .tag { color: var(--tab-1); }
-  .sheet[data-index="1"] .tag { color: var(--tab-2); }
-  .sheet[data-index="2"] .tag { color: var(--tab-3); }
-  .sheet[data-index="3"] .tag { color: var(--tab-4); }
-
-  .sheet h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    line-height: 1.25;
-  }
-  .sheet p {
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
-  .sheet .spec {
-    margin-top: auto;
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
-    font-size: 0.76rem;
-    color: var(--ink-soft);
-  }
-  .sheet .spec b { color: var(--ink); }
-
-  /* Tabs: poke out above the closed folder's top edge, like index tabs on a hanging folder */
-  .tabs {
-    position: relative;
+    transform: translateY(-172px);
+    box-shadow: 0 30px 60px rgba(17,19,24,0.26);
     z-index: 4;
-    display: flex;
-    padding: 0 22px;
-    gap: 14px;
+  }
+
+  /* wide screens: the extracted sheet spills left, laying over the copy */
+  @media (min-width: 761px) {
+    .sheet.lifted {
+      left: -74%;
+      height: 232px;
+      padding: 24px 28px 20px;
+    }
+    .sheet.lifted h3 { font-size: 1.18rem; }
+    .sheet.lifted p { font-size: 0.88rem; max-width: 52ch; }
   }
 
   .tab {
-    width: 64px;
-    height: 30px;
-    border-radius: 8px 8px 0 0;
+    position: absolute;
+    top: -26px;
+    width: 66px;
+    height: 28px;
+    border-radius: 7px 7px 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 -2px 6px rgba(17,19,24,0.08);
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s ease;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.22s ease;
   }
-  .tab:hover, .tab:focus-visible, .tab.active {
-    transform: translateY(-6px);
-  }
+  .tab:hover, .tab:focus-visible { transform: translateY(-6px); filter: brightness(1.09); }
+  .sheet.lifted .tab { transform: translateY(-2px); }
+
+  .sheet[data-index="0"] .tab { right: 256px; }
+  .sheet[data-index="1"] .tab { right: 176px; }
+  .sheet[data-index="2"] .tab { right:  96px; }
+  .sheet[data-index="3"] .tab { right:  16px; }
 
   .tab-1 { background: var(--tab-1); }
   .tab-2 { background: var(--tab-2); }
@@ -327,114 +341,162 @@
     color: #fff;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 0.78rem;
-    letter-spacing: 0.02em;
+    font-size: 0.74rem;
   }
 
-  /* the closed folder body: back panel + front flap, sits above the sheets */
-  .folder-body {
-    position: relative;
-    z-index: 2;
-    margin-top: -2px;
+  .sheet .tag {
+    font-size: 0.67rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
   }
+  .sheet[data-index="0"] .tag { color: var(--tab-1); }
+  .sheet[data-index="1"] .tag { color: var(--tab-2); }
+  .sheet[data-index="2"] .tag { color: var(--tab-3); }
+  .sheet[data-index="3"] .tag { color: var(--tab-4); }
 
-  .folder-back {
-    height: 210px;
-    background: var(--folder-back);
-    border-radius: 4px 4px 14px 14px;
-    box-shadow: 0 22px 44px rgba(17,19,24,0.14);
+  .sheet h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
   }
+  .sheet p { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.55; }
+  .sheet .spec {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    font-size: 0.73rem;
+    color: var(--ink-soft);
+  }
+  .sheet .spec b { color: var(--ink); font-weight: 600; }
 
   .folder-front {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 76%;
-    background: var(--folder-front);
-    border-radius: 4px 4px 14px 14px;
-    box-shadow: 0 10px 22px rgba(17,19,24,0.10), inset 0 1px 0 rgba(255,255,255,0.25);
+    left: 0; right: 0; bottom: 0;
+    height: 232px;
+    z-index: 3;
+    background: linear-gradient(180deg, #FFCB52 0%, #F2AC25 100%);
+    border-radius: 10px 10px 14px 14px;
+    box-shadow: 0 18px 34px rgba(17,19,24,0.16), inset 0 1px 0 rgba(255,255,255,0.45);
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 20px;
   }
-
-  .folder-brand {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 26px;
-    text-align: center;
+  .folder-name {
     font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
-    color: rgba(17,19,24,0.35);
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    color: rgba(120,80,0,0.45);
   }
 
-  @media (max-width: 480px) {
-    .tabs { padding: 0 14px; gap: 8px; }
-    .tab { width: 52px; height: 26px; }
-    .tab-num { font-size: 0.68rem; }
-    .sheet.lifted { transform: translateY(-96px); }
-    .sheet h3 { font-size: 1rem; }
-    .sheet p { font-size: 0.8rem; }
+  .hint {
+    color: var(--ink-soft);
+    font-size: 0.83rem;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .section { padding: 70px 24px 100px; border-top: 1px solid var(--line); }
-  .section-head { margin-bottom: 44px; }
-  .section-eyebrow { color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; }
+  @media (max-width: 520px) {
+    .folder-stage { height: 318px; }
+    .folder-back { height: 234px; }
+    .folder-front { height: 218px; }
+    .sheet { height: 202px; bottom: 16px; padding: 18px 18px 16px; }
+    .sheet.lifted { transform: translateY(-162px); }
+    .sheet h3 { font-size: 0.96rem; }
+    .sheet p { font-size: 0.79rem; }
+    .tab { width: 56px; }
+    .sheet[data-index="0"] .tab { right: 210px; }
+    .sheet[data-index="1"] .tab { right: 144px; }
+    .sheet[data-index="2"] .tab { right:  78px; }
+    .sheet[data-index="3"] .tab { right:  12px; }
+  }
+
+  /* ===================== SECTIONS ===================== */
+  .section { padding: 76px 0 84px; border-top: 1px solid var(--line); }
+  .section-eyebrow {
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
   h2 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 40px;
   }
 
-  .skills-grid {
+  .skill-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px 48px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
-  @media (max-width: 700px) { .skills-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 800px) { .skill-grid { grid-template-columns: 1fr; } }
 
-  .skill-row div:first-child {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.92rem;
-    margin-bottom: 8px;
+  .skill-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 26px 24px;
+    background: #fff;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .skill-row .pct { color: var(--ink-soft); }
-  .bar-track {
-    height: 6px;
+  .skill-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(17,19,24,0.07);
+  }
+  .skill-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
     background: var(--surface);
-    border-radius: 3px;
-    overflow: hidden;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
   }
-  .bar-fill { height: 100%; background: var(--accent); border-radius: 3px; }
+  .skill-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .pills { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill {
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    background: var(--surface);
+    padding: 5px 11px;
+    border-radius: 100px;
+  }
 
+  /* ===================== CONTACT ===================== */
   .contact-panel {
     background: var(--surface);
-    border-radius: 16px;
-    padding: 56px 40px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 54px 40px;
     text-align: center;
   }
-  .contact-panel h2 { margin-bottom: 12px; }
+  @media (max-width: 560px) { .contact-panel { padding: 40px 22px; } }
+  .contact-panel h2 { margin-bottom: 10px; }
   .contact-panel p { color: var(--ink-soft); margin-bottom: 28px; }
-  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-  .btn {
-    padding: 13px 26px;
-    border-radius: 8px;
-    font-size: 0.92rem;
-    font-weight: 600;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-    display: inline-block;
-  }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { transform: translateY(-2px); opacity: 0.92; }
-  .btn-ghost { border: 1px solid var(--line); color: var(--ink); background: #fff; }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .contact-links .btn-ghost { background: #fff; }
 
   footer {
     text-align: center;
-    padding: 28px 24px;
+    padding: 30px 28px;
     font-size: 0.8rem;
     color: var(--ink-soft);
     border-top: 1px solid var(--line);
@@ -445,153 +507,171 @@
 
 <header>
   <nav>
-    <div class="logo display">N. Cognome</div>
+    <div class="logo display">Nicolò Calabrese<span>.</span></div>
     <div class="nav-links">
       <a href="#progetti">Progetti</a>
-      <a href="#competenze">Competenze</a>
       <a href="#chisono">Chi sono</a>
+      <a href="#competenze">Competenze</a>
       <a href="#contatti">Contatti</a>
     </div>
   </nav>
 </header>
 
 <section class="hero">
-  <div class="wrap hero-inner">
-    <div class="hero-text">
-      <div class="eyebrow">Ingegnere Elettrico</div>
-      <h1 class="display">Progetto sistemi elettrici che funzionano al primo avvio.</h1>
-      <p class="lead">Quadri elettrici, automazione e impiantistica industriale, dal calcolo del carico alla messa in servizio.</p>
+  <div class="wrap split">
+
+    <div class="split-left">
+      <div class="eyebrow">Ingegneria Elettrica</div>
+      <h1 class="display">Progettare <em>per passione</em>.</h1>
+      <p class="lead">Disegnatore e progettista elettrico. Quadri industriali, impianti in bassa e media tensione, automazione PLC — dallo schema alla messa in servizio.</p>
+
       <div class="hero-cta">
-        <a href="#progetti" class="btn btn-primary">Vedi i progetti</a>
-        <a href="#contatti" class="btn btn-ghost">Contattami</a>
+        <a href="#contatti" class="btn btn-primary">Contattami</a>
+        <a href="#competenze" class="btn btn-ghost">Cosa so fare</a>
+      </div>
+
+      <div class="chips">
+        <span class="chip">Politecnico di Torino</span>
+        <span class="chip">Quadri BT/MT</span>
+        <span class="chip">Programmazione PLC</span>
+        <span class="chip">CAD elettrico</span>
+      </div>
+
+      <div class="about" id="chisono">
+        <div class="about-head">
+          <div class="photo-frame">
+            <img src="foto-profilo.jpg" alt="Nicolò Calabrese" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="photo-placeholder">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+            </div>
+          </div>
+          <div>
+            <div class="about-name display">Nicolò Calabrese</div>
+            <div class="about-role">Disegnatore e progettista elettrico</div>
+          </div>
+        </div>
+
+        <p class="about-text">
+          Sto completando la laurea triennale in Ingegneria Elettrica al Politecnico di Torino e lavoro come disegnatore e progettista elettrico. Mi occupo di documentazione tecnica per quadri industriali, impianti in bassa e media tensione e programmazione PLC.
+        </p>
+        <p class="about-text">
+          Studio e lavoro procedono in parallelo: quello che imparo sui banchi lo verifico in cantiere, e i problemi che incontro sul campo mi spingono a capirne la teoria. Fuori dall'orario di lavoro smanetto con microcontrollori ed elettronica autocostruita, che è poi il modo in cui questa passione è cominciata.
+        </p>
+
+        <div class="about-facts">
+          <div class="fact">
+            <span class="fact-key">Politecnico di Torino</span>
+            <span class="fact-label">Laurea triennale in corso</span>
+          </div>
+          <div class="fact">
+            <span class="fact-key">Progettazione</span>
+            <span class="fact-label">Quadri e impianti BT/MT</span>
+          </div>
+          <div class="fact">
+            <span class="fact-key">Automazione</span>
+            <span class="fact-label">Logiche e PLC</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="hero-photo">
-      <div class="photo-frame">
-        <img src="foto-profilo.jpg" alt="Foto profilo di Nome Cognome" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="photo-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
-          <span>Aggiungi foto-profilo.jpg</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hint">
-    <span>Passa il mouse sulle linguette per aprire i progetti</span>
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-  </div>
-</section>
 
-<section class="folder-zone" id="progetti">
-  <div class="folder-stage" id="folderStage">
-    <div class="binder">
+    <div class="split-right" id="progetti">
+      <div class="folder-stage">
 
-      <div class="sheet-well">
-        <div class="sheet" data-index="0">
-          <div class="tag">Quadri elettrici</div>
-          <h3>Quadro BT linea produttiva</h3>
-          <p>Progettazione e dimensionamento quadro di distribuzione bassa tensione, conforme CEI 61439.</p>
-          <div class="spec">Potenza: <b>250 kW</b></div>
-        </div>
-
-        <div class="sheet" data-index="1">
-          <div class="tag">Automazione</div>
-          <h3>Sistema di controllo PLC</h3>
-          <p>Logica di controllo e supervisione per linea di confezionamento, interfaccia SCADA.</p>
-          <div class="spec">I/O: <b>128 punti</b></div>
-        </div>
-
-        <div class="sheet" data-index="2">
-          <div class="tag">Illuminotecnica</div>
-          <h3>Impianto illuminazione capannone</h3>
-          <p>Calcolo illuminotecnico e progetto LED per capannone industriale, EN 12464-1.</p>
-          <div class="spec">Superficie: <b>2.400 m²</b></div>
-        </div>
-
-        <div class="sheet" data-index="3">
-          <div class="tag">Fotovoltaico</div>
-          <h3>Impianto FV commerciale</h3>
-          <p>Progettazione elettrica impianto fotovoltaico su copertura industriale.</p>
-          <div class="spec">Potenza: <b>100 kWp</b></div>
-        </div>
-      </div>
-
-      <div class="tabs">
-        <div class="tab tab-1" data-target="0" tabindex="0"><span class="tab-num">01</span></div>
-        <div class="tab tab-2" data-target="1" tabindex="0"><span class="tab-num">02</span></div>
-        <div class="tab tab-3" data-target="2" tabindex="0"><span class="tab-num">03</span></div>
-        <div class="tab tab-4" data-target="3" tabindex="0"><span class="tab-num">04</span></div>
-      </div>
-
-      <div class="folder-body">
         <div class="folder-back"></div>
-        <div class="folder-front"></div>
-        <div class="folder-brand">Progetti</div>
+
+        <article class="sheet" data-index="0">
+          <div class="tab tab-1" tabindex="0" role="button" aria-label="Apri scheda quadri elettrici"><span class="tab-num">01</span></div>
+          <div class="tag">Quadri elettrici</div>
+          <h3>Documentazione quadri industriali</h3>
+          <p>Schemi unifilari e funzionali, layout di carpenteria e distinte materiali per quadri di distribuzione.</p>
+          <div class="spec">Riferimento: <b>CEI EN 61439</b></div>
+        </article>
+
+        <article class="sheet" data-index="1">
+          <div class="tab tab-2" tabindex="0" role="button" aria-label="Apri scheda automazione"><span class="tab-num">02</span></div>
+          <div class="tag">Automazione</div>
+          <h3>Logiche di controllo PLC</h3>
+          <p>Sviluppo e messa a punto di logiche di comando per macchine e linee, con gestione degli I/O di campo.</p>
+          <div class="spec">Ambito: <b>Automazione industriale</b></div>
+        </article>
+
+        <article class="sheet" data-index="2">
+          <div class="tab tab-3" tabindex="0" role="button" aria-label="Apri scheda impianti"><span class="tab-num">03</span></div>
+          <div class="tag">Impianti BT / MT</div>
+          <h3>Distribuzione bassa e media tensione</h3>
+          <p>Dimensionamento linee, scelta delle protezioni e verifiche di coordinamento per impianti industriali.</p>
+          <div class="spec">Riferimento: <b>CEI 64-8</b></div>
+        </article>
+
+        <article class="sheet" data-index="3">
+          <div class="tab tab-4" tabindex="0" role="button" aria-label="Apri scheda illuminotecnica"><span class="tab-num">04</span></div>
+          <div class="tag">Illuminotecnica</div>
+          <h3>Calcolo illuminotecnico</h3>
+          <p>Progetto di impianti di illuminazione per ambienti di lavoro, con verifica dei livelli richiesti.</p>
+          <div class="spec">Riferimento: <b>EN 12464-1</b></div>
+        </article>
+
+        <div class="folder-front">
+          <span class="folder-name">Progetti</span>
+        </div>
+
       </div>
 
+      <div class="hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/></svg>
+        <span>Clicca una linguetta per estrarre la scheda</span>
+      </div>
     </div>
-  </div>
-</section>
 
-<section class="section" id="chisono">
-  <div class="wrap about-grid">
-    <div class="about-photo">
-      <div class="photo-frame photo-frame-small">
-        <img src="foto-profilo.jpg" alt="Foto profilo di Nome Cognome" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="photo-placeholder">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
-        </div>
-      </div>
-    </div>
-    <div class="about-content">
-      <div class="section-eyebrow">Chi sono</div>
-      <h2 class="display">Nome Cognome</h2>
-      <p class="about-text">
-        Sono un ingegnere elettrico con esperienza nella progettazione di quadri elettrici, sistemi di automazione e impianti industriali. Mi occupo dell'intero ciclo di progetto: dal dimensionamento dei carichi alla scelta dei componenti, dalla stesura degli schemi alla messa in servizio, sempre nel rispetto delle normative CEI ed EN vigenti.
-      </p>
-      <p class="about-text">
-        Lavoro con software CAE come SPAC Automazione e curo con particolare attenzione la documentazione tecnica e la conformità normativa di ogni impianto.
-      </p>
-      <div class="about-facts">
-        <div class="fact">
-          <span class="fact-num display">5+</span>
-          <span class="fact-label">Anni di esperienza</span>
-        </div>
-        <div class="fact">
-          <span class="fact-num display">30+</span>
-          <span class="fact-label">Progetti seguiti</span>
-        </div>
-        <div class="fact">
-          <span class="fact-num display">CEI</span>
-          <span class="fact-label">61439 · 64-8</span>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
 <section class="section" id="competenze">
   <div class="wrap">
-    <div class="section-head">
-      <div class="section-eyebrow">Competenze</div>
-      <h2 class="display">Aree tecniche</h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-row">
-        <div><span>Progettazione CAD</span><span class="pct">90%</span></div>
-        <div class="bar-track"><div class="bar-fill" style="width: 90%"></div></div>
+    <div class="section-eyebrow">Competenze</div>
+    <h2 class="display">Aree tecniche</h2>
+
+    <div class="skill-grid">
+      <div class="skill-card">
+        <div class="skill-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Progettazione</h3>
+        <div class="pills">
+          <span class="pill">Schemi unifilari</span>
+          <span class="pill">Schemi funzionali</span>
+          <span class="pill">Layout quadri</span>
+          <span class="pill">Distinte materiali</span>
+          <span class="pill">CAD elettrico</span>
+        </div>
       </div>
-      <div class="skill-row">
-        <div><span>Normativa CEI/EN</span><span class="pct">85%</span></div>
-        <div class="bar-track"><div class="bar-fill" style="width: 85%"></div></div>
+
+      <div class="skill-card">
+        <div class="skill-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Automazione</h3>
+        <div class="pills">
+          <span class="pill">Programmazione PLC</span>
+          <span class="pill">Logiche di comando</span>
+          <span class="pill">Gestione I/O</span>
+          <span class="pill">Quadri di comando</span>
+        </div>
       </div>
-      <div class="skill-row">
-        <div><span>Automazione PLC</span><span class="pct">75%</span></div>
-        <div class="bar-track"><div class="bar-fill" style="width: 75%"></div></div>
-      </div>
-      <div class="skill-row">
-        <div><span>Calcolo elettrico</span><span class="pct">88%</span></div>
-        <div class="bar-track"><div class="bar-fill" style="width: 88%"></div></div>
+
+      <div class="skill-card">
+        <div class="skill-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
+        </div>
+        <h3>Impianti</h3>
+        <div class="pills">
+          <span class="pill">Bassa tensione</span>
+          <span class="pill">Media tensione</span>
+          <span class="pill">Dimensionamento linee</span>
+          <span class="pill">Protezioni</span>
+          <span class="pill">Illuminotecnica</span>
+        </div>
       </div>
     </div>
   </div>
@@ -600,44 +680,47 @@
 <section class="section" id="contatti">
   <div class="wrap">
     <div class="contact-panel">
-      <h2 class="display">Parliamo del tuo progetto</h2>
-      <p>Disponibile per collaborazioni e nuove opportunità.</p>
+      <h2 class="display">Parliamone</h2>
+      <p>Disponibile per collaborazioni, tirocini e nuovi progetti.</p>
       <div class="contact-links">
-        <a href="mailto:nome@email.com" class="btn btn-primary">nome@email.com</a>
-        <a href="https://linkedin.com" class="btn btn-ghost">LinkedIn</a>
+        <a href="mailto:tua@email.com" class="btn btn-primary">tua@email.com</a>
+        <a href="https://linkedin.com/in/tuoprofilo" class="btn btn-ghost">LinkedIn</a>
+        <a href="https://github.com/nic010c" class="btn btn-ghost">GitHub</a>
       </div>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Nome Cognome — Ingegnere Elettrico</footer>
+<footer>© 2026 Nicolò Calabrese — Ingegneria Elettrica</footer>
 
 <script>
-  const tabs = document.querySelectorAll('.tab');
   const sheets = document.querySelectorAll('.sheet');
 
-  function lift(index) {
+  function openSheet(index) {
     sheets.forEach(s => s.classList.toggle('lifted', s.dataset.index === String(index)));
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.target === String(index)));
   }
-  function reset() {
+  function closeAll() {
     sheets.forEach(s => s.classList.remove('lifted'));
-    tabs.forEach(t => t.classList.remove('active'));
   }
-
-  tabs.forEach(tab => {
-    const idx = tab.dataset.target;
-    tab.addEventListener('mouseenter', () => lift(idx));
-    tab.addEventListener('mouseleave', reset);
-    tab.addEventListener('focus', () => lift(idx));
-    tab.addEventListener('blur', reset);
-    tab.addEventListener('click', () => lift(idx));
-    tab.addEventListener('touchstart', () => lift(idx), { passive: true });
-  });
 
   sheets.forEach(sheet => {
-    sheet.addEventListener('mouseenter', () => lift(sheet.dataset.index));
-    sheet.addEventListener('mouseleave', reset);
+    const tab = sheet.querySelector('.tab');
+    const idx = sheet.dataset.index;
+    const toggle = (e) => {
+      e.stopPropagation();
+      sheet.classList.contains('lifted') ? closeAll() : openSheet(idx);
+    };
+    tab.addEventListener('click', toggle);
+    tab.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.folder-stage')) closeAll();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAll();
   });
 </script>
 
