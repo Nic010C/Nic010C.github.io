@@ -172,35 +172,29 @@
   }
 
   /* ===================== ABOUT ===================== */
-  .about {
-    margin-top: 60px;
-    padding-top: 42px;
-    border-top: 1px solid var(--line);
+  .about-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 56px;
+    align-items: start;
   }
-  .about-head {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-bottom: 22px;
+  @media (max-width: 820px) {
+    .about-grid { grid-template-columns: 1fr; gap: 34px; }
   }
-  .about-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.45rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-  .about-role { font-size: 0.85rem; color: var(--ink-soft); margin-top: 2px; }
+
+  .about-side { position: sticky; top: 108px; }
+  @media (max-width: 820px) { .about-side { position: static; } }
 
   .photo-frame {
     position: relative;
-    width: 88px;
-    height: 88px;
-    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
     background: var(--surface);
-    border: 3px solid #fff;
-    box-shadow: 0 0 0 2px var(--accent), 0 10px 24px rgba(17,19,24,0.14);
+    border: 5px solid #fff;
+    box-shadow: 0 0 0 2px var(--accent), 0 16px 36px rgba(17,19,24,0.16);
+    margin-bottom: 22px;
   }
   .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .photo-placeholder {
@@ -213,22 +207,43 @@
     background: var(--surface);
   }
 
+  .about-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .about-role { font-size: 0.88rem; color: var(--ink-soft); margin-top: 3px; }
+  .about-mail {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.84rem;
+    color: var(--accent);
+    font-weight: 500;
+    word-break: break-all;
+  }
+  .about-mail:hover { text-decoration: underline; }
+
+  .about-body h2 { margin-bottom: 24px; }
+
   .about-text {
     color: var(--ink-soft);
-    font-size: 0.96rem;
-    line-height: 1.72;
-    max-width: 58ch;
-    margin-bottom: 14px;
+    font-size: 1rem;
+    line-height: 1.78;
+    max-width: 64ch;
+    margin-bottom: 18px;
   }
 
   .about-facts {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    gap: 30px;
-    margin-top: 28px;
+    gap: 34px;
+    margin-top: 34px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
     justify-content: start;
   }
-  @media (max-width: 560px) { .about-facts { grid-template-columns: 1fr 1fr; gap: 22px; } }
+  @media (max-width: 620px) { .about-facts { grid-template-columns: 1fr 1fr; gap: 22px; } }
 
   .fact { display: flex; flex-direction: column; gap: 3px; }
   .fact-key {
@@ -537,42 +552,6 @@
         <span class="chip">CAD elettrico</span>
       </div>
 
-      <div class="about" id="chisono">
-        <div class="about-head">
-          <div class="photo-frame">
-            <img src="foto-profilo.jpg" alt="Nicolò Calabrese" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="photo-placeholder">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
-            </div>
-          </div>
-          <div>
-            <div class="about-name display">Nicolò Calabrese</div>
-            <div class="about-role">Disegnatore e progettista elettrico</div>
-          </div>
-        </div>
-
-        <p class="about-text">
-          Sto completando la laurea triennale in Ingegneria Elettrica al Politecnico di Torino e lavoro come disegnatore e progettista elettrico. Mi occupo di documentazione tecnica per quadri industriali, impianti in bassa e media tensione e programmazione PLC.
-        </p>
-        <p class="about-text">
-          Studio e lavoro procedono in parallelo: quello che imparo sui banchi lo verifico in cantiere, e i problemi che incontro sul campo mi spingono a capirne la teoria. Fuori dall'orario di lavoro smanetto con microcontrollori ed elettronica autocostruita, che è poi il modo in cui questa passione è cominciata.
-        </p>
-
-        <div class="about-facts">
-          <div class="fact">
-            <span class="fact-key">Politecnico di Torino</span>
-            <span class="fact-label">Laurea triennale in corso</span>
-          </div>
-          <div class="fact">
-            <span class="fact-key">Progettazione</span>
-            <span class="fact-label">Quadri e impianti BT/MT</span>
-          </div>
-          <div class="fact">
-            <span class="fact-key">Automazione</span>
-            <span class="fact-label">Logiche e PLC</span>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="split-right" id="progetti">
@@ -621,6 +600,59 @@
       <div class="hint">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/></svg>
         <span>Clicca una linguetta per estrarre la scheda</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="chisono">
+  <div class="wrap about-grid">
+
+    <div class="about-side">
+      <div class="photo-frame">
+        <img src="foto-profilo.jpg" alt="Nicolò Calabrese" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder">
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+        </div>
+      </div>
+      <div class="about-id">
+        <div class="about-name display">Nicolò Calabrese</div>
+        <div class="about-role">Disegnatore e progettista elettrico</div>
+        <a class="about-mail" href="mailto:nicolocalabrese2005@gmail.com">nicolocalabrese2005@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="about-body">
+      <div class="section-eyebrow">Chi sono</div>
+      <h2 class="display">Studio la teoria, la verifico in cantiere</h2>
+
+      <p class="about-text">
+        Sto completando la laurea triennale in Ingegneria Elettrica al Politecnico di Torino e lavoro come disegnatore e progettista elettrico. Mi occupo della documentazione tecnica di quadri industriali — schemi unifilari e funzionali, layout di carpenteria, distinte materiali — e di impianti in bassa e media tensione.
+      </p>
+      <p class="about-text">
+        Sul fronte automazione lavoro sulla programmazione PLC: logiche di comando per macchine e linee, gestione degli I/O di campo, quadri di comando. È la parte che mi interessa di più, perché è dove il progetto smette di essere carta e inizia a muovere qualcosa.
+      </p>
+      <p class="about-text">
+        Studiare e lavorare insieme ha un vantaggio concreto: quello che vedo a lezione lo ritrovo sul campo con tutte le complicazioni che i libri semplificano, e i problemi che incontro in cantiere mi costringono a tornare sulla teoria per capirli davvero. Non è sempre comodo, ma è il motivo per cui certe cose non le dimentico più.
+      </p>
+      <p class="about-text">
+        Fuori dall'orario di lavoro smanetto con microcontrollori ed elettronica autocostruita. È lì che questa passione è cominciata, molto prima che diventasse un mestiere, ed è ancora il posto dove provo le idee senza doverne rispondere a nessuno.
+      </p>
+
+      <div class="about-facts">
+        <div class="fact">
+          <span class="fact-key">Politecnico di Torino</span>
+          <span class="fact-label">Laurea triennale in corso</span>
+        </div>
+        <div class="fact">
+          <span class="fact-key">Progettazione</span>
+          <span class="fact-label">Quadri e impianti BT/MT</span>
+        </div>
+        <div class="fact">
+          <span class="fact-key">Automazione</span>
+          <span class="fact-label">Logiche e PLC</span>
+        </div>
       </div>
     </div>
 
@@ -683,7 +715,7 @@
       <h2 class="display">Parliamone</h2>
       <p>Disponibile per collaborazioni, tirocini e nuovi progetti.</p>
       <div class="contact-links">
-        <a href="mailto:tua@email.com" class="btn btn-primary">tua@email.com</a>
+        <a href="mailto:nicolocalabrese2005@gmail.com" class="btn btn-primary">nicolocalabrese2005@gmail.com</a>
         <a href="https://linkedin.com/in/tuoprofilo" class="btn btn-ghost">LinkedIn</a>
         <a href="https://github.com/nic010c" class="btn btn-ghost">GitHub</a>
       </div>
