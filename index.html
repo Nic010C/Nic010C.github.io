@@ -83,7 +83,22 @@
   @media (max-width: 460px) { .nav-links a:nth-child(3) { display: none; } }
 
   /* ===================== HERO ===================== */
-  .hero { padding: 72px 0 88px; }
+  .hero { padding: 72px 0 88px; position: relative; }
+  .hero > .wrap { position: relative; z-index: 1; }
+
+  /* the same power line, running faintly behind the opening section */
+  .powerline-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30px;
+    z-index: 0;
+    color: rgba(17,19,24,0.075);
+    line-height: 0;
+    pointer-events: none;
+  }
+  .powerline-bg svg { display: block; width: 100%; height: 420px; }
+  @media (max-width: 760px) { .powerline-bg svg { height: 300px; } }
 
   .split {
     display: grid;
@@ -509,6 +524,19 @@
   .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .contact-links .btn-ghost { background: #fff; }
 
+  /* stylised power line that runs off both edges of the page */
+  .powerline {
+    color: rgba(17,19,24,0.17);
+    line-height: 0;
+    margin-top: 40px;
+  }
+  .powerline svg {
+    display: block;
+    width: 100%;
+    height: 170px;
+  }
+  @media (max-width: 620px) { .powerline svg { height: 128px; } }
+
   footer {
     text-align: center;
     padding: 30px 28px;
@@ -533,6 +561,39 @@
 </header>
 
 <section class="hero">
+  <div class="powerline-bg" aria-hidden="true">
+    <svg viewBox="0 0 1200 190" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+      <g id="pylon-bg" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M-20 160 L-6 40 M20 160 L6 40"/>
+        <path d="M-16 125 L16 125 M-12 90 L12 90 M-9 62 L9 62"/>
+        <path d="M-20 160 L16 125 M20 160 L-16 125"/>
+        <path d="M-16 125 L12 90 M16 125 L-12 90"/>
+        <path d="M-12 90 L9 62 M12 90 L-9 62"/>
+        <path d="M-34 80 L34 80 M-24 55 L24 55"/>
+        <path d="M-6 40 L0 31 L6 40"/>
+        <path d="M-34 80 v6 M34 80 v6 M-24 55 v5 M24 55 v5"/>
+      </g>
+      </defs>
+      <g fill="none" stroke="currentColor" stroke-width="1.6"
+         stroke-linecap="round">
+        <path d="M-116 60 Q100 118 316 60"/>
+      <path d="M364 60 Q580 118 796 60"/>
+      <path d="M844 60 Q1060 118 1276 60"/>
+      <path d="M-106 86 Q100 146 306 86"/>
+      <path d="M374 86 Q580 146 786 86"/>
+      <path d="M854 86 Q1060 146 1266 86"/>
+      </g>
+      <g>
+        <use href="#pylon-bg" x="-140"/>
+      <use href="#pylon-bg" x="340"/>
+      <use href="#pylon-bg" x="820"/>
+      <use href="#pylon-bg" x="1300"/>
+      </g>
+    </svg>
+  </div>
+
   <div class="wrap split">
 
     <div class="split-left">
@@ -722,6 +783,47 @@
     </div>
   </div>
 </section>
+
+<div class="powerline" aria-hidden="true">
+  <svg viewBox="0 0 1200 180" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <g id="pylon" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M-20 160 L-6 40 M20 160 L6 40"/>
+        <path d="M-16 125 L16 125 M-12 90 L12 90 M-9 62 L9 62"/>
+        <path d="M-20 160 L16 125 M20 160 L-16 125"/>
+        <path d="M-16 125 L12 90 M16 125 L-12 90"/>
+        <path d="M-12 90 L9 62 M12 90 L-9 62"/>
+        <path d="M-34 80 L34 80 M-24 55 L24 55"/>
+        <path d="M-6 40 L0 31 L6 40"/>
+        <path d="M-34 80 v6 M34 80 v6 M-24 55 v5 M24 55 v5"/>
+      </g>
+    </defs>
+
+    <g fill="none" stroke="currentColor" stroke-width="1.6"
+       stroke-linecap="round" opacity="0.85">
+      <path d="M-76 60 Q90 106 256 60"/>
+      <path d="M304 60 Q470 106 636 60"/>
+      <path d="M684 60 Q850 106 1016 60"/>
+      <path d="M1064 60 Q1230 106 1396 60"/>
+      <path d="M-66 86 Q90 132 246 86"/>
+      <path d="M314 86 Q470 132 626 86"/>
+      <path d="M694 86 Q850 132 1006 86"/>
+      <path d="M1074 86 Q1230 132 1386 86"/>
+    </g>
+
+    <g>
+      <use href="#pylon" x="-100"/>
+      <use href="#pylon" x="280"/>
+      <use href="#pylon" x="660"/>
+      <use href="#pylon" x="1040"/>
+      <use href="#pylon" x="1420"/>
+    </g>
+
+    <path d="M-120 160 H1520" fill="none" stroke="currentColor"
+          stroke-width="1.5" opacity="0.5"/>
+  </svg>
+</div>
 
 <footer>© 2026 Nicolò Calabrese — Ingegneria Elettrica</footer>
 
