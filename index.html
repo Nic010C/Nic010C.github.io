@@ -84,7 +84,7 @@
   @media (max-width: 460px) { .nav-links a:nth-child(3) { display: none; } }
 
   /* ===================== HERO ===================== */
-  .hero { padding: 72px 0 88px; position: relative; }
+  .hero { padding: 72px 0 24px; position: relative; }
   .hero > .wrap { position: relative; z-index: 1; }
 
   /* the same power line, running faintly behind the opening section */
@@ -327,13 +327,13 @@
   }
 
   /* ============ SHELF: spines that open into a flip-through book ============ */
-  .shelf-section { padding: 66px 0 24px; }
-  .shelf-wrap { max-width: 940px; margin: 0 auto; }
+  .shelf-section { padding: 8px 0 24px; }
+  .shelf-wrap { width: 100%; }
 
   .shelf {
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0;
     height: 336px;
     perspective: 2000px;
@@ -610,13 +610,11 @@
   .shelf.has-open .book:not(.open) { flex-basis: 46px; }
 
   .shelf-hint {
-    text-align: center;
     color: var(--ink-soft);
     font-size: 0.83rem;
-    margin-top: 26px;
+    margin: 22px 0 0 28px;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
   }
 
@@ -820,7 +818,6 @@
 </section>
 
 <section class="shelf-section" id="progetti">
-  <div class="wrap">
     <div class="shelf-wrap">
       <div class="shelf" id="shelf">
       <div class="book" data-index="0" role="button" tabindex="0" aria-expanded="false"
@@ -1157,7 +1154,6 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/></svg>
       <span>Clicca un dorso per aprire il volume, poi sfoglia le pagine</span>
     </div>
-  </div>
 </section>
 
 <section class="marquee-section">
