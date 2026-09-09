@@ -284,7 +284,17 @@
     .logos { overflow-x: auto; }
   }
 
-  .logo_items img { height: 34px; margin: 0 26px; vertical-align: middle; }
+  .logo_items img {
+    height: 40px;
+    width: auto;
+    margin: 0 24px;
+    vertical-align: middle;
+    object-fit: contain;
+    opacity: 0.92;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .logo_items img:hover { opacity: 1; transform: scale(1.05); }
+  .logo_items img.tall { height: 46px; }
 
   .logo_items .item {
     display: inline-flex;
@@ -1161,38 +1171,45 @@
     <div class="marquee-label">Strumenti, ambiti e riferimenti normativi</div>
     <div class="logos">
       <div class="logo_items">
+      <span class="logo"><img src="logo-polito.png" alt="Politecnico di Torino"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CAD elettrico</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>SPAC Automazione</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Schemi unifilari</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Schemi funzionali</span>
+      <span class="logo"><img src="logo-spac.png" alt="SPAC Automazione"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Programmazione PLC</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Logiche di comando</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Quadri BT</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Media tensione</span>
+      <span class="logo tall"><img src="logo-eplan.png" alt="EPLAN"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Dimensionamento linee</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Coordinamento protezioni</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CEI EN 61439</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CEI 64-8</span>
+      <span class="logo tall"><img src="plc-s7-1500.png" alt="PLC Siemens SIMATIC S7-1500"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>EN 12464-1</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Illuminotecnica</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Microcontrollori</span>
       </div><div class="logo_items" aria-hidden="true">
+      <span class="logo"><img src="logo-polito.png" alt="Politecnico di Torino"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CAD elettrico</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>SPAC Automazione</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Schemi unifilari</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Schemi funzionali</span>
+      <span class="logo"><img src="logo-spac.png" alt="SPAC Automazione"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Programmazione PLC</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Logiche di comando</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Quadri BT</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Media tensione</span>
+      <span class="logo tall"><img src="logo-eplan.png" alt="EPLAN"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Dimensionamento linee</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Coordinamento protezioni</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CEI EN 61439</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CEI 64-8</span>
+      <span class="logo tall"><img src="plc-s7-1500.png" alt="PLC Siemens SIMATIC S7-1500"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>EN 12464-1</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Illuminotecnica</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Microcontrollori</span>
       </div>
+    </div>
     </div>
   </div>
 </section>
