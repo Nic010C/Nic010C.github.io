@@ -326,180 +326,288 @@
     background: var(--surface);
   }
 
-  /* ============ SHELF: project books ============ */
-  .shelf-section { padding: 64px 0 20px; }
+  /* ============ SHELF: spines that open into a flip-through book ============ */
+  .shelf-section { padding: 66px 0 24px; }
+  .shelf-wrap { max-width: 940px; margin: 0 auto; }
 
   .shelf {
     display: flex;
-    gap: 12px;
-    max-width: 900px;
-    margin: 0 auto;
-    height: 330px;
-    perspective: 1500px;
-    perspective-origin: 50% 40%;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0;
+    height: 336px;
+    perspective: 2000px;
+    perspective-origin: 50% 45%;
+  }
+
+  .shelf-board {
+    height: 9px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #E4E7EF, #C9CEDC);
+    box-shadow: 0 8px 18px rgba(17,19,24,0.14);
   }
 
   .book {
     position: relative;
-    flex: 1 1 25%;
+    flex: 0 0 60px;
+    height: var(--h, 276px);
     min-width: 0;
-    border: 0;
-    padding: 0;
     cursor: pointer;
-    border-radius: 5px 12px 12px 5px;
-    background: linear-gradient(150deg, var(--c1), var(--c2));
+    transform-style: preserve-3d;
+    transform-origin: var(--origin, bottom center);
+    transform: rotate(var(--tilt, 0deg));
+    margin-left: var(--nudge, 0);
+    transition: flex-basis 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.55s cubic-bezier(0.34, 1.35, 0.5, 1),
+                margin 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .book:not(.open):hover,
+  .book:not(.open):focus-visible {
+    transform: rotate(calc(var(--tilt, 0deg) * 0.25)) translateY(-22px);
+  }
+  .book:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+
+  /* ---------- spine ---------- */
+  .spine {
+    position: absolute;
+    inset: 0;
+    border-radius: 3px 7px 7px 3px;
+    background: linear-gradient(100deg, var(--c1), var(--c2));
     color: #fff;
-    text-align: left;
-    overflow: hidden;
-    transform: rotateY(-15deg);
-    transform-origin: 50% 50%;
-    box-shadow: 0 16px 34px rgba(17,19,24,0.20),
-                inset -1px 0 0 rgba(255,255,255,0.14);
-    transition: flex-basis 0.62s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.45s ease;
-    font-family: inherit;
-  }
-  .book:hover { transform: rotateY(-7deg) translateY(-14px); }
-  .book:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
-
-  /* the page block along the fore edge */
-  .book::after {
-    content: '';
-    position: absolute;
-    top: 7px; bottom: 7px; right: 0;
-    width: 7px;
-    border-radius: 0 8px 8px 0;
-    background: repeating-linear-gradient(180deg,
-                rgba(255,255,255,0.85) 0 2px, rgba(210,214,225,0.85) 2px 4px);
-    opacity: 0.75;
-  }
-  /* spine groove */
-  .book::before {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0; left: 11px;
-    width: 2px;
-    background: rgba(0,0,0,0.16);
-  }
-
-  .book-cover {
-    position: absolute;
-    inset: 0;
-    padding: 26px 22px 24px 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: opacity 0.3s ease;
-  }
-  .book-num {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.1rem;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-  .book-label {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.92rem;
-    font-weight: 600;
-    line-height: 1.25;
-  }
-  .book-ico { opacity: 0.85; margin-top: 14px; }
-
-  /* vertical spine caption, shown once another book is open */
-  .book-spine {
-    position: absolute;
-    inset: 0;
-    padding: 22px 0 22px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    padding: 16px 0;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform-origin: left center;
+    box-shadow: 0 14px 28px rgba(17,19,24,0.24),
+                inset -3px 0 6px rgba(0,0,0,0.24),
+                inset 3px 0 4px rgba(255,255,255,0.16);
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
   }
-  .book-spine .s-num {
+  .spine::before, .spine::after {
+    content: '';
+    position: absolute;
+    left: 6px; right: 6px;
+    height: 2px;
+    background: rgba(255,255,255,0.35);
+  }
+  .spine::before { top: 40px; }
+  .spine::after { bottom: 40px; }
+
+  .spine-num {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.84rem;
   }
-  .book-spine .s-title {
+  .spine-title {
     writing-mode: vertical-rl;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
+    font-size: 0.86rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
   }
 
-  /* the page that slides out when a book is opened */
-  .book-page {
+  /* ---------- the opened book ---------- */
+  .spread {
     position: absolute;
-    top: 12px; bottom: 12px; right: 12px;
-    left: 74px;
+    inset: 0;
+    border-radius: 4px 6px 6px 4px;
     background: #fff;
-    color: var(--ink);
-    border-radius: 4px 8px 8px 4px;
-    padding: 28px 30px 24px;
+    opacity: 0;
+    pointer-events: none;
+    perspective: 2200px;
+    transform-origin: left center;
+    transform: rotateY(-88deg);
+    box-shadow: 0 30px 62px rgba(17,19,24,0.26);
+    transition: opacity 0.3s ease, transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .book.open .spread {
+    opacity: 1;
+    transform: rotateY(0deg);
+    pointer-events: auto;
+    transition: opacity 0.28s ease 0.16s,
+                transform 0.62s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  }
+  /* gutter shadow down the middle */
+  .spread::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width: 36px;
+    margin-left: -18px;
+    z-index: 40;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+      rgba(17,19,24,0) 0%, rgba(17,19,24,0.09) 42%,
+      rgba(17,19,24,0.14) 50%, rgba(17,19,24,0.09) 58%, rgba(17,19,24,0) 100%);
+  }
+
+  .board-left, .board-right {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 50%;
+  }
+  .board-left { left: 0; z-index: 1; }
+  .board-right { right: 0; z-index: 0; }
+
+  .leaves {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%; right: 0;
+    transform-style: preserve-3d;
+  }
+  .leaf {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    transform: rotateY(0deg);
+    transition: transform 0.85s cubic-bezier(0.42, 0, 0.2, 1);
+  }
+  .leaf.turned { transform: rotateY(-180deg); }
+  .face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    background: #fff;
+    overflow: hidden;
+  }
+  .face.back { transform: rotateY(180deg); }
+  /* paper edge shading so a turning leaf reads as a sheet */
+  .face.front { box-shadow: inset 7px 0 14px -8px rgba(17,19,24,0.28); }
+  .face.back  { box-shadow: inset -7px 0 14px -8px rgba(17,19,24,0.28); }
+
+  /* ---------- page contents ---------- */
+  .pg {
+    height: 100%;
+    padding: 30px 32px 26px;
     display: flex;
     flex-direction: column;
-    opacity: 0;
-    transform-origin: left center;
-    transform: rotateY(-72deg);
-    pointer-events: none;
-    box-shadow: -8px 0 20px rgba(0,0,0,0.16);
-    transition: opacity 0.35s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .book-page .tag {
-    font-size: 0.7rem;
+  .pg-title {
+    background: linear-gradient(160deg, var(--c1), var(--c2));
+    color: #fff;
+    justify-content: space-between;
+  }
+  .pg-title .tag {
+    font-size: 0.71rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--c2);
-    margin-bottom: 10px;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
   }
-  .book-page h3 {
+  .pg-title h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.42rem;
     font-weight: 600;
-    line-height: 1.25;
-    margin-bottom: 12px;
+    line-height: 1.24;
+    margin-top: 14px;
   }
-  .book-page p {
-    font-size: 0.94rem;
-    line-height: 1.65;
+  .pg-title .p-ico { opacity: 0.9; margin-top: auto; }
+
+  .pg h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--c2);
+    margin-bottom: 14px;
+  }
+  .pg p {
+    font-size: 0.92rem;
+    line-height: 1.7;
     color: var(--ink-soft);
-    max-width: 54ch;
   }
-  .book-page .spec {
+  .pg ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .pg li {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    padding-left: 18px;
+    position: relative;
+  }
+  .pg li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--c1);
+  }
+  .pg .norm {
     margin-top: auto;
     padding-top: 16px;
     border-top: 1px solid var(--line);
     font-size: 0.8rem;
     color: var(--ink-soft);
   }
-  .book-page .spec b { color: var(--ink); font-weight: 600; }
-
-  /* --- open / compressed states --- */
-  .shelf.has-open .book { transform: rotateY(-13deg) scale(0.97); }
-  .shelf.has-open .book:not(.open) { flex-basis: 11%; }
-  .shelf.has-open .book:not(.open) .book-cover { opacity: 0; }
-  .shelf.has-open .book:not(.open) .book-spine { opacity: 1; }
-  .shelf.has-open .book:not(.open):hover { transform: rotateY(-6deg) translateY(-10px) scale(0.99); }
-
-  .shelf .book.open {
-    flex-basis: 67%;
-    transform: rotateY(0deg) translateY(-10px);
-    box-shadow: 0 30px 60px rgba(17,19,24,0.28);
+  .pg .norm b { color: var(--ink); font-weight: 600; }
+  .pg-num {
+    margin-top: 14px;
+    font-size: 0.68rem;
+    color: #B6BCCB;
+    letter-spacing: 0.06em;
   }
-  .book.open .book-cover { opacity: 0; }
-  .book.open .book-page {
-    opacity: 1;
-    transform: rotateY(0deg);
-    pointer-events: auto;
-    transition: opacity 0.3s ease 0.12s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+  .pg-end { align-items: center; justify-content: center; text-align: center; gap: 10px; }
+  .pg-end span { font-size: 0.85rem; color: var(--ink-soft); }
+
+  /* ---------- flip controls ---------- */
+  .flip {
+    position: absolute;
+    bottom: 14px;
+    z-index: 50;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.94);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, background 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(17,19,24,0.12);
   }
+  .book.open .flip { opacity: 1; }
+  .flip:hover { background: #fff; transform: scale(1.08); }
+  .flip:disabled { opacity: 0.25 !important; cursor: default; transform: none; }
+  .flip-prev { left: 14px; }
+  .flip-next { right: 14px; }
+
+  .close-book {
+    position: absolute;
+    top: 12px; right: 12px;
+    z-index: 50;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.9);
+    color: var(--ink-soft);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, color 0.2s ease;
+  }
+  .book.open .close-book { opacity: 1; }
+  .close-book:hover { color: var(--ink); }
+
+  /* ---------- open state ---------- */
+  .book.open {
+    flex: 0 0 min(620px, 84vw);
+    height: 350px;
+    transform: rotate(0deg) translateY(-16px);
+    margin-left: 0;
+    cursor: default;
+  }
+  .book.open .spine { transform: rotateY(88deg); opacity: 0; }
+  .shelf.has-open .book:not(.open) { flex-basis: 46px; }
 
   .shelf-hint {
     text-align: center;
@@ -512,19 +620,19 @@
     gap: 8px;
   }
 
-  @media (max-width: 720px) {
-    .shelf { height: 290px; gap: 8px; }
-    .book { border-radius: 4px 9px 9px 4px; }
-    .book-cover { padding: 18px 14px 18px 22px; }
-    .book-num { font-size: 1.5rem; }
-    .book-label { font-size: 0.76rem; }
-    .book-ico { display: none; }
-    .shelf .book.open { flex-basis: 74%; }
-    .shelf.has-open .book:not(.open) { flex-basis: 8%; }
-    .book-page { left: 52px; padding: 20px 18px 18px; top: 9px; bottom: 9px; right: 9px; }
-    .book-page h3 { font-size: 1.08rem; }
-    .book-page p { font-size: 0.85rem; }
-    .book-spine .s-title { font-size: 0.72rem; }
+  /* single page at a time on narrow screens */
+  @media (max-width: 760px) {
+    .shelf { height: 300px; }
+    .book { flex-basis: 46px; }
+    .shelf.has-open .book:not(.open) { flex-basis: 30px; }
+    .book.open { flex: 0 0 90vw; height: 400px; }
+    .spine-title { font-size: 0.74rem; }
+    .board-left { display: none; }
+    .board-right, .leaves { left: 0; width: 100%; }
+    .spread::after { display: none; }
+    .pg { padding: 22px 22px 20px; }
+    .pg-title h3 { font-size: 1.2rem; }
+    .pg p { font-size: 0.88rem; }
   }
 
   /* ===================== SECTIONS ===================== */
@@ -713,95 +821,341 @@
 
 <section class="shelf-section" id="progetti">
   <div class="wrap">
-    <div class="shelf" id="shelf">
-    <button class="book" data-index="0" style="--c1:#2B3A5C; --c2:#1B2740"
-            aria-expanded="false" aria-label="Apri scheda quadri elettrici">
-      <span class="book-cover">
-        <span class="book-num">01</span>
-        <span>
-          <span class="book-label">Quadri<br>elettrici</span>
-          <svg class="book-ico" width="22" height="22" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <div class="shelf-wrap">
+      <div class="shelf" id="shelf">
+      <div class="book" data-index="0" role="button" tabindex="0" aria-expanded="false"
+           aria-label="Apri il volume quadri elettrici"
+           style="--c1:#2B3A5C; --c2:#18223A; --tilt:0deg; --h:290px;
+                  --origin:bottom center; --nudge:0">
+
+        <span class="spine">
+          <span class="spine-num">01</span>
+          <span class="spine-title">Quadri elettrici</span>
+          <span class="spine-num">&#9670;</span>
         </span>
-      </span>
-      <span class="book-spine">
-        <span class="s-num">01</span>
-        <span class="s-title">Quadri elettrici</span>
-      </span>
-      <span class="book-page">
-        <span class="tag">Quadri elettrici</span>
-        <h3>Documentazione quadri industriali</h3>
-        <p>Schemi unifilari e funzionali, layout di carpenteria e distinte materiali per quadri di distribuzione.</p>
-        <span class="spec">Riferimento: <b>CEI EN 61439</b></span>
-      </span>
-    </button>
-    <button class="book" data-index="1" style="--c1:#3B5BFF; --c2:#2440C8"
-            aria-expanded="false" aria-label="Apri scheda automazione">
-      <span class="book-cover">
-        <span class="book-num">02</span>
-        <span>
-          <span class="book-label">Logiche<br>PLC</span>
-          <svg class="book-ico" width="22" height="22" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M4 10H2M4 14H2M22 10h-2M22 14h-2M10 4V2M14 4V2M10 22v-2M14 22v-2"/></svg>
+
+        <div class="spread">
+          <button class="close-book" aria-label="Chiudi il volume">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+
+          <div class="board-left">
+            <div class="pg pg-title">
+              <span class="tag">Quadri elettrici</span>
+              <h3>Documentazione quadri industriali</h3>
+              <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+          </div>
+
+          <div class="board-right">
+            <div class="pg pg-end">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M4 19.5V6a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/></svg>
+              <span>Fine del volume</span>
+            </div>
+          </div>
+
+          <div class="leaves">
+            <div class="leaf" data-leaf="0">
+              <div class="face front">
+                <div class="pg">
+                  <h4>Panoramica</h4>
+                  <p>Preparazione del fascicolo tecnico di un quadro di distribuzione: dalla lettura delle specifiche alla documentazione che accompagna la carpenteria in officina e in cantiere.</p>
+                  <div class="pg-num">1</div>
+                </div>
+              </div>
+              <div class="face back">
+                <div class="pg">
+                  <h4>Cosa comprende</h4>
+                  <ul>
+              <li>Schemi unifilari di distribuzione</li>
+              <li>Schemi funzionali di comando</li>
+              <li>Layout di carpenteria e fronte quadro</li>
+              <li>Distinte materiali e siglatura morsetti</li>
+                  </ul>
+                  <div class="pg-num">2</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="leaf" data-leaf="1">
+              <div class="face front">
+                <div class="pg">
+                  <h4>Riferimenti</h4>
+                  <p>La parte più delicata non è disegnare lo schema, ma tenerlo allineato alle modifiche che arrivano dal campo fino al collaudo.</p>
+                  <div class="norm">Riferimento: <b>CEI EN 61439-1/2</b></div>
+                  <div class="pg-num">3</div>
+                </div>
+              </div>
+              <div class="face back">
+                <div class="pg pg-end">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M12 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+                  <span>Nicolò Calabrese</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="flip flip-prev" aria-label="Pagina precedente">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="flip flip-next" aria-label="Pagina successiva">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="book" data-index="1" role="button" tabindex="0" aria-expanded="false"
+           aria-label="Apri il volume logiche plc"
+           style="--c1:#3B5BFF; --c2:#2036B8; --tilt:0deg; --h:268px;
+                  --origin:bottom center; --nudge:0">
+
+        <span class="spine">
+          <span class="spine-num">02</span>
+          <span class="spine-title">Logiche PLC</span>
+          <span class="spine-num">&#9670;</span>
         </span>
-      </span>
-      <span class="book-spine">
-        <span class="s-num">02</span>
-        <span class="s-title">Logiche PLC</span>
-      </span>
-      <span class="book-page">
-        <span class="tag">Automazione</span>
-        <h3>Logiche di controllo PLC</h3>
-        <p>Sviluppo e messa a punto di logiche di comando per macchine e linee, con gestione degli I/O di campo.</p>
-        <span class="spec">Ambito: <b>Automazione industriale</b></span>
-      </span>
-    </button>
-    <button class="book" data-index="2" style="--c1:#14B88A; --c2:#0B8C68"
-            aria-expanded="false" aria-label="Apri scheda impianti bt / mt">
-      <span class="book-cover">
-        <span class="book-num">03</span>
-        <span>
-          <span class="book-label">Impianti<br>BT / MT</span>
-          <svg class="book-ico" width="22" height="22" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
+
+        <div class="spread">
+          <button class="close-book" aria-label="Chiudi il volume">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+
+          <div class="board-left">
+            <div class="pg pg-title">
+              <span class="tag">Automazione</span>
+              <h3>Logiche di controllo PLC</h3>
+              <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M4 10H2M4 14H2M22 10h-2M22 14h-2M10 4V2M14 4V2M10 22v-2M14 22v-2"/></svg>
+            </div>
+          </div>
+
+          <div class="board-right">
+            <div class="pg pg-end">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M4 19.5V6a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/></svg>
+              <span>Fine del volume</span>
+            </div>
+          </div>
+
+          <div class="leaves">
+            <div class="leaf" data-leaf="0">
+              <div class="face front">
+                <div class="pg">
+                  <h4>Panoramica</h4>
+                  <p>Sviluppo e messa a punto delle logiche di comando per macchine e linee, con la gestione degli ingressi e delle uscite di campo.</p>
+                  <div class="pg-num">1</div>
+                </div>
+              </div>
+              <div class="face back">
+                <div class="pg">
+                  <h4>Cosa comprende</h4>
+                  <ul>
+              <li>Logiche di comando e sequenze</li>
+              <li>Mappatura e gestione degli I/O</li>
+              <li>Sicurezze e consensi di marcia</li>
+              <li>Prove funzionali in avviamento</li>
+                  </ul>
+                  <div class="pg-num">2</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="leaf" data-leaf="1">
+              <div class="face front">
+                <div class="pg">
+                  <h4>Riferimenti</h4>
+                  <p>È il punto in cui il progetto smette di essere carta: la logica o muove la macchina come previsto, oppure no.</p>
+                  <div class="norm">Ambito: <b>Automazione industriale</b></div>
+                  <div class="pg-num">3</div>
+                </div>
+              </div>
+              <div class="face back">
+                <div class="pg pg-end">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M12 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+                  <span>Nicolò Calabrese</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="flip flip-prev" aria-label="Pagina precedente">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="flip flip-next" aria-label="Pagina successiva">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="book" data-index="2" role="button" tabindex="0" aria-expanded="false"
+           aria-label="Apri il volume impianti bt / mt"
+           style="--c1:#14B88A; --c2:#087A59; --tilt:0deg; --h:300px;
+                  --origin:bottom center; --nudge:0">
+
+        <span class="spine">
+          <span class="spine-num">03</span>
+          <span class="spine-title">Impianti BT / MT</span>
+          <span class="spine-num">&#9670;</span>
         </span>
-      </span>
-      <span class="book-spine">
-        <span class="s-num">03</span>
-        <span class="s-title">Impianti BT / MT</span>
-      </span>
-      <span class="book-page">
-        <span class="tag">Impianti BT / MT</span>
-        <h3>Distribuzione in bassa e media tensione</h3>
-        <p>Dimensionamento delle linee, scelta delle protezioni e verifiche di coordinamento per impianti industriali.</p>
-        <span class="spec">Riferimento: <b>CEI 64-8</b></span>
-      </span>
-    </button>
-    <button class="book" data-index="3" style="--c1:#F0862B; --c2:#D2621A"
-            aria-expanded="false" aria-label="Apri scheda illuminotecnica">
-      <span class="book-cover">
-        <span class="book-num">04</span>
-        <span>
-          <span class="book-label">Illumino<br>tecnica</span>
-          <svg class="book-ico" width="22" height="22" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+
+        <div class="spread">
+          <button class="close-book" aria-label="Chiudi il volume">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+
+          <div class="board-left">
+            <div class="pg pg-title">
+              <span class="tag">Impianti BT / MT</span>
+              <h3>Distribuzione in bassa e media tensione</h3>
+              <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
+            </div>
+          </div>
+
+          <div class="board-right">
+            <div class="pg pg-end">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M4 19.5V6a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/></svg>
+              <span>Fine del volume</span>
+            </div>
+          </div>
+
+          <div class="leaves">
+            <div class="leaf" data-leaf="0">
+              <div class="face front">
+                <div class="pg">
+                  <h4>Panoramica</h4>
+                  <p>Dimensionamento delle linee di distribuzione e scelta delle protezioni, con le verifiche che ne garantiscono il coordinamento.</p>
+                  <div class="pg-num">1</div>
+                </div>
+              </div>
+              <div class="face back">
+                <div class="pg">
+                  <h4>Cosa comprende</h4>
+                  <ul>
+              <li>Calcolo delle correnti d'impiego</li>
+              <li>Sezionamento e scelta dei cavi</li>
+              <li>Selettività e protezione dai cortocircuiti</li>
+              <li>Verifica delle cadute di tensione</li>
+                  </ul>
+                  <div class="pg-num">2</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="leaf" data-leaf="1">
+              <div class="face front">
+                <div class="pg">
+                  <h4>Riferimenti</h4>
+                  <p>Un impianto dimensionato bene si riconosce dopo anni: nessuno se ne accorge, perché non dà problemi.</p>
+                  <div class="norm">Riferimento: <b>CEI 64-8</b></div>
+                  <div class="pg-num">3</div>
+                </div>
+              </div>
+              <div class="face back">
+                <div class="pg pg-end">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M12 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+                  <span>Nicolò Calabrese</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="flip flip-prev" aria-label="Pagina precedente">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="flip flip-next" aria-label="Pagina successiva">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="book" data-index="3" role="button" tabindex="0" aria-expanded="false"
+           aria-label="Apri il volume illuminotecnica"
+           style="--c1:#F0862B; --c2:#C85A14; --tilt:-13deg; --h:252px;
+                  --origin:bottom left; --nudge:58px">
+
+        <span class="spine">
+          <span class="spine-num">04</span>
+          <span class="spine-title">Illuminotecnica</span>
+          <span class="spine-num">&#9670;</span>
         </span>
-      </span>
-      <span class="book-spine">
-        <span class="s-num">04</span>
-        <span class="s-title">Illumino tecnica</span>
-      </span>
-      <span class="book-page">
-        <span class="tag">Illuminotecnica</span>
-        <h3>Calcolo illuminotecnico</h3>
-        <p>Progetto di impianti di illuminazione per ambienti di lavoro, con verifica dei livelli richiesti.</p>
-        <span class="spec">Riferimento: <b>EN 12464-1</b></span>
-      </span>
-    </button>
+
+        <div class="spread">
+          <button class="close-book" aria-label="Chiudi il volume">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+
+          <div class="board-left">
+            <div class="pg pg-title">
+              <span class="tag">Illuminotecnica</span>
+              <h3>Calcolo illuminotecnico</h3>
+              <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+            </div>
+          </div>
+
+          <div class="board-right">
+            <div class="pg pg-end">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M4 19.5V6a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/></svg>
+              <span>Fine del volume</span>
+            </div>
+          </div>
+
+          <div class="leaves">
+            <div class="leaf" data-leaf="0">
+              <div class="face front">
+                <div class="pg">
+                  <h4>Panoramica</h4>
+                  <p>Progetto degli impianti di illuminazione per ambienti di lavoro, con verifica dei livelli di illuminamento e dell'uniformità richiesti.</p>
+                  <div class="pg-num">1</div>
+                </div>
+              </div>
+              <div class="face back">
+                <div class="pg">
+                  <h4>Cosa comprende</h4>
+                  <ul>
+              <li>Calcolo dell'illuminamento medio</li>
+              <li>Scelta e posizionamento dei corpi</li>
+              <li>Verifica di uniformità e abbagliamento</li>
+              <li>Illuminazione di sicurezza</li>
+                  </ul>
+                  <div class="pg-num">2</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="leaf" data-leaf="1">
+              <div class="face front">
+                <div class="pg">
+                  <h4>Riferimenti</h4>
+                  <p>Il numero di targa dice poco: conta come la luce arriva davvero sul piano di lavoro.</p>
+                  <div class="norm">Riferimento: <b>EN 12464-1</b></div>
+                  <div class="pg-num">3</div>
+                </div>
+              </div>
+              <div class="face back">
+                <div class="pg pg-end">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M12 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+                  <span>Nicolò Calabrese</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="flip flip-prev" aria-label="Pagina precedente">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="flip flip-next" aria-label="Pagina successiva">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+      </div>
+      <div class="shelf-board"></div>
     </div>
     <div class="shelf-hint">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/></svg>
-      <span>Clicca un volume per aprirlo</span>
+      <span>Clicca un dorso per aprire il volume, poi sfoglia le pagine</span>
     </div>
   </div>
 </section>
@@ -1001,34 +1355,86 @@
   const shelf = document.getElementById('shelf');
   const books = shelf ? [...shelf.querySelectorAll('.book')] : [];
 
-  function open(book) {
-    books.forEach(b => {
-      const on = b === book;
-      b.classList.toggle('open', on);
-      b.setAttribute('aria-expanded', on ? 'true' : 'false');
-    });
-    shelf.classList.add('has-open');
-  }
-  function closeAll() {
-    books.forEach(b => {
-      b.classList.remove('open');
-      b.setAttribute('aria-expanded', 'false');
-    });
-    shelf.classList.remove('has-open');
-  }
-
   books.forEach(book => {
-    book.addEventListener('click', (e) => {
-      e.stopPropagation();
-      book.classList.contains('open') ? closeAll() : open(book);
+    const leaves = [...book.querySelectorAll('.leaf')];
+    const prev = book.querySelector('.flip-prev');
+    const next = book.querySelector('.flip-next');
+    const closeBtn = book.querySelector('.close-book');
+    let turned = 0;                      // how many leaves are flipped over
+
+    // Stack the leaves: unturned ones descend from the top of the pile,
+    // turned ones climb back up on the left side.
+    function restack() {
+      leaves.forEach((leaf, i) => {
+        const isTurned = i < turned;
+        leaf.classList.toggle('turned', isTurned);
+        leaf.style.zIndex = isTurned ? 10 + i : 10 + (leaves.length - i);
+      });
+      prev.disabled = turned === 0;
+      next.disabled = turned === leaves.length;
+    }
+
+    function go(delta) {
+      const t = Math.min(leaves.length, Math.max(0, turned + delta));
+      if (t === turned) return;
+      turned = t;
+      restack();
+    }
+
+    function openBook() {
+      books.forEach(b => {
+        if (b !== book) { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }
+      });
+      book.classList.add('open');
+      book.setAttribute('aria-expanded', 'true');
+      shelf.classList.add('has-open');
+      turned = 0;
+      restack();
+    }
+
+    function closeBook() {
+      book.classList.remove('open');
+      book.setAttribute('aria-expanded', 'false');
+      shelf.classList.remove('has-open');
+    }
+
+    book.addEventListener('click', () => {
+      if (!book.classList.contains('open')) openBook();
     });
+    book.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        book.classList.contains('open') ? closeBook() : openBook();
+      }
+      if (!book.classList.contains('open')) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); go(-1); }
+    });
+
+    next.addEventListener('click', (e) => { e.stopPropagation(); go(1); });
+    prev.addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeBook(); });
+
+    // turning by clicking the page halves, the way you would with a real book
+    book.querySelector('.spread').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (e.target.closest('button')) return;
+      const box = book.getBoundingClientRect();
+      go(e.clientX - box.left > box.width / 2 ? 1 : -1);
+    });
+
+    restack();
   });
 
   document.addEventListener('click', (e) => {
-    if (shelf && !e.target.closest('#shelf')) closeAll();
+    if (!shelf || e.target.closest('#shelf')) return;
+    books.forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); });
+    shelf.classList.remove('has-open');
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAll();
+    if (e.key !== 'Escape' || !shelf) return;
+    books.forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); });
+    shelf.classList.remove('has-open');
   });
 </script>
 
