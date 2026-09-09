@@ -186,18 +186,6 @@
   }
 
   /* ===================== ABOUT ===================== */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 56px;
-    align-items: start;
-  }
-  @media (max-width: 820px) {
-    .about-grid { grid-template-columns: 1fr; gap: 34px; }
-  }
-
-  .about-side { position: sticky; top: 108px; }
-  @media (max-width: 820px) { .about-side { position: static; } }
 
   .photo-frame {
     position: relative;
@@ -221,16 +209,9 @@
     background: var(--surface);
   }
 
-  .about-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.32rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-  .about-role { font-size: 0.88rem; color: var(--ink-soft); margin-top: 3px; }
   .about-mail {
     display: inline-block;
-    margin-top: 12px;
+    margin: -12px 0 26px;
     font-size: 0.84rem;
     color: var(--accent);
     font-weight: 500;
@@ -269,7 +250,8 @@
   .fact-label { font-size: 0.76rem; color: var(--ink-soft); }
 
   /* ===================== MARQUEE ===================== */
-  .marquee-wrap { margin-top: 54px; padding-top: 34px; border-top: 1px solid var(--line); }
+  .marquee-section { padding: 46px 0 10px; }
+  .marquee-wrap { }
   .marquee-label {
     font-size: 0.78rem;
     color: var(--ink-soft);
@@ -320,184 +302,229 @@
   }
   .logo_items .item svg { color: var(--accent); flex-shrink: 0; }
 
-  /* ===================== FOLDER ===================== */
-  .split-right {
-    position: sticky;
-    top: 100px;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  @media (max-width: 760px) { .split-right { position: static; } }
-
-  .folder-stage {
+  /* ============ HERO PHOTO ============ */
+  .hero-photo { display: flex; justify-content: center; align-items: flex-start; }
+  .photo-frame {
     position: relative;
-    width: min(392px, 88vw);
-    height: 336px;
+    flex: 0 0 auto;
+    width: min(300px, 70vw);
+    height: min(300px, 70vw);
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--surface);
+    border: 6px solid #fff;
+    box-shadow: 0 0 0 2px var(--accent), 0 22px 44px rgba(17,19,24,0.18);
   }
-
-  .folder-back {
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-placeholder {
+    display: none;
     position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 248px;
-    z-index: 1;
-    background: linear-gradient(180deg, #FFD877 0%, #FFC64F 100%);
-    border-radius: 12px 12px 14px 14px;
-  }
-  .folder-back::before {
-    content: '';
-    position: absolute;
-    top: -17px;
-    left: 0;
-    width: 44%;
-    height: 20px;
-    background: #FFD877;
-    border-radius: 10px 12px 0 0;
-  }
-
-  .sheet {
-    position: absolute;
-    left: 7%;
-    right: 7%;
-    bottom: 16px;
-    height: 214px;
-    z-index: 2;
-    background: #fff;
-    border-radius: 6px;
-    border: 1px solid var(--line);
-    box-shadow: 0 2px 6px rgba(17,19,24,0.08);
-    padding: 20px 22px 18px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.4s ease;
-  }
-  .sheet > *:not(.tab) { opacity: 0; transition: opacity 0.18s ease; }
-  .sheet.lifted > *:not(.tab) { opacity: 1; transition: opacity 0.35s ease 0.16s; }
-  .sheet.lifted {
-    transform: translateY(-172px);
-    box-shadow: 0 30px 60px rgba(17,19,24,0.26);
-    z-index: 4;
-  }
-
-  /* wide screens: the extracted sheet spills left, laying over the copy */
-  @media (min-width: 761px) {
-    .sheet.lifted {
-      left: -74%;
-      height: 232px;
-      padding: 24px 28px 20px;
-    }
-    .sheet.lifted h3 { font-size: 1.18rem; }
-    .sheet.lifted p { font-size: 0.88rem; max-width: 52ch; }
-  }
-
-  .tab {
-    position: absolute;
-    top: -26px;
-    width: 66px;
-    height: 28px;
-    border-radius: 7px 7px 0 0;
-    display: flex;
+    inset: 0;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.22s ease;
+    color: var(--ink-soft);
+    background: var(--surface);
   }
-  .tab:hover, .tab:focus-visible { transform: translateY(-6px); filter: brightness(1.09); }
-  .sheet.lifted .tab { transform: translateY(-2px); }
 
-  .sheet[data-index="0"] .tab { right: 256px; }
-  .sheet[data-index="1"] .tab { right: 176px; }
-  .sheet[data-index="2"] .tab { right:  96px; }
-  .sheet[data-index="3"] .tab { right:  16px; }
+  /* ============ SHELF: project books ============ */
+  .shelf-section { padding: 64px 0 20px; }
 
-  .tab-1 { background: var(--tab-1); }
-  .tab-2 { background: var(--tab-2); }
-  .tab-3 { background: var(--tab-3); }
-  .tab-4 { background: var(--tab-4); }
+  .shelf {
+    display: flex;
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+    height: 330px;
+    perspective: 1500px;
+    perspective-origin: 50% 40%;
+  }
 
-  .tab-num {
+  .book {
+    position: relative;
+    flex: 1 1 25%;
+    min-width: 0;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px 12px 12px 5px;
+    background: linear-gradient(150deg, var(--c1), var(--c2));
     color: #fff;
+    text-align: left;
+    overflow: hidden;
+    transform: rotateY(-15deg);
+    transform-origin: 50% 50%;
+    box-shadow: 0 16px 34px rgba(17,19,24,0.20),
+                inset -1px 0 0 rgba(255,255,255,0.14);
+    transition: flex-basis 0.62s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.45s ease;
+    font-family: inherit;
+  }
+  .book:hover { transform: rotateY(-7deg) translateY(-14px); }
+  .book:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+  /* the page block along the fore edge */
+  .book::after {
+    content: '';
+    position: absolute;
+    top: 7px; bottom: 7px; right: 0;
+    width: 7px;
+    border-radius: 0 8px 8px 0;
+    background: repeating-linear-gradient(180deg,
+                rgba(255,255,255,0.85) 0 2px, rgba(210,214,225,0.85) 2px 4px);
+    opacity: 0.75;
+  }
+  /* spine groove */
+  .book::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 11px;
+    width: 2px;
+    background: rgba(0,0,0,0.16);
+  }
+
+  .book-cover {
+    position: absolute;
+    inset: 0;
+    padding: 26px 22px 24px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: opacity 0.3s ease;
+  }
+  .book-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .book-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .book-ico { opacity: 0.85; margin-top: 14px; }
+
+  /* vertical spine caption, shown once another book is open */
+  .book-spine {
+    position: absolute;
+    inset: 0;
+    padding: 22px 0 22px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .book-spine .s-num {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 0.74rem;
+    font-size: 0.95rem;
+  }
+  .book-spine .s-title {
+    writing-mode: vertical-rl;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
   }
 
-  .sheet .tag {
-    font-size: 0.67rem;
+  /* the page that slides out when a book is opened */
+  .book-page {
+    position: absolute;
+    top: 12px; bottom: 12px; right: 12px;
+    left: 74px;
+    background: #fff;
+    color: var(--ink);
+    border-radius: 4px 8px 8px 4px;
+    padding: 28px 30px 24px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform-origin: left center;
+    transform: rotateY(-72deg);
+    pointer-events: none;
+    box-shadow: -8px 0 20px rgba(0,0,0,0.16);
+    transition: opacity 0.35s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .book-page .tag {
+    font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 8px;
+    color: var(--c2);
+    margin-bottom: 10px;
   }
-  .sheet[data-index="0"] .tag { color: var(--tab-1); }
-  .sheet[data-index="1"] .tag { color: var(--tab-2); }
-  .sheet[data-index="2"] .tag { color: var(--tab-3); }
-  .sheet[data-index="3"] .tag { color: var(--tab-4); }
-
-  .sheet h3 {
+  .book-page h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.02rem;
+    font-size: 1.4rem;
     font-weight: 600;
-    margin-bottom: 8px;
-    line-height: 1.3;
+    line-height: 1.25;
+    margin-bottom: 12px;
   }
-  .sheet p { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.55; }
-  .sheet .spec {
+  .book-page p {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 54ch;
+  }
+  .book-page .spec {
     margin-top: auto;
-    padding-top: 12px;
+    padding-top: 16px;
     border-top: 1px solid var(--line);
-    font-size: 0.73rem;
+    font-size: 0.8rem;
     color: var(--ink-soft);
   }
-  .sheet .spec b { color: var(--ink); font-weight: 600; }
+  .book-page .spec b { color: var(--ink); font-weight: 600; }
 
-  .folder-front {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 232px;
-    z-index: 3;
-    background: linear-gradient(180deg, #FFCB52 0%, #F2AC25 100%);
-    border-radius: 10px 10px 14px 14px;
-    box-shadow: 0 18px 34px rgba(17,19,24,0.16), inset 0 1px 0 rgba(255,255,255,0.45);
-    pointer-events: none;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 20px;
+  /* --- open / compressed states --- */
+  .shelf.has-open .book { transform: rotateY(-13deg) scale(0.97); }
+  .shelf.has-open .book:not(.open) { flex-basis: 11%; }
+  .shelf.has-open .book:not(.open) .book-cover { opacity: 0; }
+  .shelf.has-open .book:not(.open) .book-spine { opacity: 1; }
+  .shelf.has-open .book:not(.open):hover { transform: rotateY(-6deg) translateY(-10px) scale(0.99); }
+
+  .shelf .book.open {
+    flex-basis: 67%;
+    transform: rotateY(0deg) translateY(-10px);
+    box-shadow: 0 30px 60px rgba(17,19,24,0.28);
   }
-  .folder-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 0.88rem;
-    letter-spacing: 0.06em;
-    color: rgba(120,80,0,0.45);
+  .book.open .book-cover { opacity: 0; }
+  .book.open .book-page {
+    opacity: 1;
+    transform: rotateY(0deg);
+    pointer-events: auto;
+    transition: opacity 0.3s ease 0.12s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
   }
 
-  .hint {
+  .shelf-hint {
+    text-align: center;
     color: var(--ink-soft);
     font-size: 0.83rem;
-    margin-top: 20px;
+    margin-top: 26px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
   }
 
-  @media (max-width: 520px) {
-    .folder-stage { height: 318px; }
-    .folder-back { height: 234px; }
-    .folder-front { height: 218px; }
-    .sheet { height: 202px; bottom: 16px; padding: 18px 18px 16px; }
-    .sheet.lifted { transform: translateY(-162px); }
-    .sheet h3 { font-size: 0.96rem; }
-    .sheet p { font-size: 0.79rem; }
-    .tab { width: 56px; }
-    .sheet[data-index="0"] .tab { right: 210px; }
-    .sheet[data-index="1"] .tab { right: 144px; }
-    .sheet[data-index="2"] .tab { right:  78px; }
-    .sheet[data-index="3"] .tab { right:  12px; }
+  @media (max-width: 720px) {
+    .shelf { height: 290px; gap: 8px; }
+    .book { border-radius: 4px 9px 9px 4px; }
+    .book-cover { padding: 18px 14px 18px 22px; }
+    .book-num { font-size: 1.5rem; }
+    .book-label { font-size: 0.76rem; }
+    .book-ico { display: none; }
+    .shelf .book.open { flex-basis: 74%; }
+    .shelf.has-open .book:not(.open) { flex-basis: 8%; }
+    .book-page { left: 52px; padding: 20px 18px 18px; top: 9px; bottom: 9px; right: 9px; }
+    .book-page h3 { font-size: 1.08rem; }
+    .book-page p { font-size: 0.85rem; }
+    .book-spine .s-title { font-size: 0.72rem; }
   }
 
   /* ===================== SECTIONS ===================== */
@@ -672,110 +699,114 @@
 
     </div>
 
-    <div class="split-right" id="progetti">
-      <div class="folder-stage">
-
-        <div class="folder-back"></div>
-
-        <article class="sheet" data-index="0">
-          <div class="tab tab-1" tabindex="0" role="button" aria-label="Apri scheda quadri elettrici"><span class="tab-num">01</span></div>
-          <div class="tag">Quadri elettrici</div>
-          <h3>Documentazione quadri industriali</h3>
-          <p>Schemi unifilari e funzionali, layout di carpenteria e distinte materiali per quadri di distribuzione.</p>
-          <div class="spec">Riferimento: <b>CEI EN 61439</b></div>
-        </article>
-
-        <article class="sheet" data-index="1">
-          <div class="tab tab-2" tabindex="0" role="button" aria-label="Apri scheda automazione"><span class="tab-num">02</span></div>
-          <div class="tag">Automazione</div>
-          <h3>Logiche di controllo PLC</h3>
-          <p>Sviluppo e messa a punto di logiche di comando per macchine e linee, con gestione degli I/O di campo.</p>
-          <div class="spec">Ambito: <b>Automazione industriale</b></div>
-        </article>
-
-        <article class="sheet" data-index="2">
-          <div class="tab tab-3" tabindex="0" role="button" aria-label="Apri scheda impianti"><span class="tab-num">03</span></div>
-          <div class="tag">Impianti BT / MT</div>
-          <h3>Distribuzione bassa e media tensione</h3>
-          <p>Dimensionamento linee, scelta delle protezioni e verifiche di coordinamento per impianti industriali.</p>
-          <div class="spec">Riferimento: <b>CEI 64-8</b></div>
-        </article>
-
-        <article class="sheet" data-index="3">
-          <div class="tab tab-4" tabindex="0" role="button" aria-label="Apri scheda illuminotecnica"><span class="tab-num">04</span></div>
-          <div class="tag">Illuminotecnica</div>
-          <h3>Calcolo illuminotecnico</h3>
-          <p>Progetto di impianti di illuminazione per ambienti di lavoro, con verifica dei livelli richiesti.</p>
-          <div class="spec">Riferimento: <b>EN 12464-1</b></div>
-        </article>
-
-        <div class="folder-front">
-          <span class="folder-name">Progetti</span>
+    <div class="hero-photo">
+      <div class="photo-frame">
+        <img src="foto-profilo.jpg" alt="Nicolò Calabrese" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder">
+          <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
         </div>
-
-      </div>
-
-      <div class="hint">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/></svg>
-        <span>Clicca una linguetta per estrarre la scheda</span>
       </div>
     </div>
 
   </div>
 </section>
 
-<section class="section" id="chisono">
-  <div class="wrap about-grid">
-
-    <div class="about-side">
-      <div class="photo-frame">
-        <img src="foto-profilo.jpg" alt="Nicolò Calabrese" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="photo-placeholder">
-          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
-        </div>
-      </div>
-      <div class="about-id">
-        <div class="about-name display">Nicolò Calabrese</div>
-        <div class="about-role">Disegnatore e progettista elettrico</div>
-        <a class="about-mail" href="mailto:nicolocalabrese2005@gmail.com">nicolocalabrese2005@gmail.com</a>
-      </div>
+<section class="shelf-section" id="progetti">
+  <div class="wrap">
+    <div class="shelf" id="shelf">
+    <button class="book" data-index="0" style="--c1:#2B3A5C; --c2:#1B2740"
+            aria-expanded="false" aria-label="Apri scheda quadri elettrici">
+      <span class="book-cover">
+        <span class="book-num">01</span>
+        <span>
+          <span class="book-label">Quadri<br>elettrici</span>
+          <svg class="book-ico" width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </span>
+      </span>
+      <span class="book-spine">
+        <span class="s-num">01</span>
+        <span class="s-title">Quadri elettrici</span>
+      </span>
+      <span class="book-page">
+        <span class="tag">Quadri elettrici</span>
+        <h3>Documentazione quadri industriali</h3>
+        <p>Schemi unifilari e funzionali, layout di carpenteria e distinte materiali per quadri di distribuzione.</p>
+        <span class="spec">Riferimento: <b>CEI EN 61439</b></span>
+      </span>
+    </button>
+    <button class="book" data-index="1" style="--c1:#3B5BFF; --c2:#2440C8"
+            aria-expanded="false" aria-label="Apri scheda automazione">
+      <span class="book-cover">
+        <span class="book-num">02</span>
+        <span>
+          <span class="book-label">Logiche<br>PLC</span>
+          <svg class="book-ico" width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M4 10H2M4 14H2M22 10h-2M22 14h-2M10 4V2M14 4V2M10 22v-2M14 22v-2"/></svg>
+        </span>
+      </span>
+      <span class="book-spine">
+        <span class="s-num">02</span>
+        <span class="s-title">Logiche PLC</span>
+      </span>
+      <span class="book-page">
+        <span class="tag">Automazione</span>
+        <h3>Logiche di controllo PLC</h3>
+        <p>Sviluppo e messa a punto di logiche di comando per macchine e linee, con gestione degli I/O di campo.</p>
+        <span class="spec">Ambito: <b>Automazione industriale</b></span>
+      </span>
+    </button>
+    <button class="book" data-index="2" style="--c1:#14B88A; --c2:#0B8C68"
+            aria-expanded="false" aria-label="Apri scheda impianti bt / mt">
+      <span class="book-cover">
+        <span class="book-num">03</span>
+        <span>
+          <span class="book-label">Impianti<br>BT / MT</span>
+          <svg class="book-ico" width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
+        </span>
+      </span>
+      <span class="book-spine">
+        <span class="s-num">03</span>
+        <span class="s-title">Impianti BT / MT</span>
+      </span>
+      <span class="book-page">
+        <span class="tag">Impianti BT / MT</span>
+        <h3>Distribuzione in bassa e media tensione</h3>
+        <p>Dimensionamento delle linee, scelta delle protezioni e verifiche di coordinamento per impianti industriali.</p>
+        <span class="spec">Riferimento: <b>CEI 64-8</b></span>
+      </span>
+    </button>
+    <button class="book" data-index="3" style="--c1:#F0862B; --c2:#D2621A"
+            aria-expanded="false" aria-label="Apri scheda illuminotecnica">
+      <span class="book-cover">
+        <span class="book-num">04</span>
+        <span>
+          <span class="book-label">Illumino<br>tecnica</span>
+          <svg class="book-ico" width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+        </span>
+      </span>
+      <span class="book-spine">
+        <span class="s-num">04</span>
+        <span class="s-title">Illumino tecnica</span>
+      </span>
+      <span class="book-page">
+        <span class="tag">Illuminotecnica</span>
+        <h3>Calcolo illuminotecnico</h3>
+        <p>Progetto di impianti di illuminazione per ambienti di lavoro, con verifica dei livelli richiesti.</p>
+        <span class="spec">Riferimento: <b>EN 12464-1</b></span>
+      </span>
+    </button>
     </div>
-
-    <div class="about-body">
-      <div class="section-eyebrow">Chi sono</div>
-      <h2 class="display">Studio la teoria, la verifico in cantiere</h2>
-
-      <p class="about-text">
-        Sto completando la laurea triennale in Ingegneria Elettrica al Politecnico di Torino e lavoro come disegnatore e progettista elettrico. Mi occupo della documentazione tecnica di quadri industriali — schemi unifilari e funzionali, layout di carpenteria, distinte materiali — e di impianti in bassa e media tensione.
-      </p>
-      <p class="about-text">
-        Sul fronte automazione lavoro sulla programmazione PLC: logiche di comando per macchine e linee, gestione degli I/O di campo, quadri di comando. È la parte che mi interessa di più, perché è dove il progetto smette di essere carta e inizia a muovere qualcosa.
-      </p>
-      <p class="about-text">
-        Studiare e lavorare insieme ha un vantaggio concreto: quello che vedo a lezione lo ritrovo sul campo con tutte le complicazioni che i libri semplificano, e i problemi che incontro in cantiere mi costringono a tornare sulla teoria per capirli davvero. Non è sempre comodo, ma è il motivo per cui certe cose non le dimentico più.
-      </p>
-      <p class="about-text">
-        Fuori dall'orario di lavoro smanetto con microcontrollori ed elettronica autocostruita. È lì che questa passione è cominciata, molto prima che diventasse un mestiere, ed è ancora il posto dove provo le idee senza doverne rispondere a nessuno.
-      </p>
-
-      <div class="about-facts">
-        <div class="fact">
-          <span class="fact-key">Politecnico di Torino</span>
-          <span class="fact-label">Laurea triennale in corso</span>
-        </div>
-        <div class="fact">
-          <span class="fact-key">Progettazione</span>
-          <span class="fact-label">Quadri e impianti BT/MT</span>
-        </div>
-        <div class="fact">
-          <span class="fact-key">Automazione</span>
-          <span class="fact-label">Logiche e PLC</span>
-        </div>
-      </div>
+    <div class="shelf-hint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/></svg>
+      <span>Clicca un volume per aprirlo</span>
     </div>
-
   </div>
+</section>
 
+<section class="marquee-section">
   <div class="wrap marquee-wrap">
     <div class="marquee-label">Strumenti, ambiti e riferimenti normativi</div>
     <div class="logos">
@@ -814,6 +845,47 @@
       </div>
     </div>
   </div>
+</section>
+
+<section class="section" id="chisono">
+  <div class="wrap">
+
+    <div class="about-body">
+      <div class="section-eyebrow">Chi sono</div>
+      <h2 class="display">Studio la teoria, la verifico in cantiere</h2>
+      <a class="about-mail" href="mailto:nicolocalabrese2005@gmail.com">nicolocalabrese2005@gmail.com</a>
+
+      <p class="about-text">
+        Sto completando la laurea triennale in Ingegneria Elettrica al Politecnico di Torino e lavoro come disegnatore e progettista elettrico. Mi occupo della documentazione tecnica di quadri industriali — schemi unifilari e funzionali, layout di carpenteria, distinte materiali — e di impianti in bassa e media tensione.
+      </p>
+      <p class="about-text">
+        Sul fronte automazione lavoro sulla programmazione PLC: logiche di comando per macchine e linee, gestione degli I/O di campo, quadri di comando. È la parte che mi interessa di più, perché è dove il progetto smette di essere carta e inizia a muovere qualcosa.
+      </p>
+      <p class="about-text">
+        Studiare e lavorare insieme ha un vantaggio concreto: quello che vedo a lezione lo ritrovo sul campo con tutte le complicazioni che i libri semplificano, e i problemi che incontro in cantiere mi costringono a tornare sulla teoria per capirli davvero. Non è sempre comodo, ma è il motivo per cui certe cose non le dimentico più.
+      </p>
+      <p class="about-text">
+        Fuori dall'orario di lavoro smanetto con microcontrollori ed elettronica autocostruita. È lì che questa passione è cominciata, molto prima che diventasse un mestiere, ed è ancora il posto dove provo le idee senza doverne rispondere a nessuno.
+      </p>
+
+      <div class="about-facts">
+        <div class="fact">
+          <span class="fact-key">Politecnico di Torino</span>
+          <span class="fact-label">Laurea triennale in corso</span>
+        </div>
+        <div class="fact">
+          <span class="fact-key">Progettazione</span>
+          <span class="fact-label">Quadri e impianti BT/MT</span>
+        </div>
+        <div class="fact">
+          <span class="fact-key">Automazione</span>
+          <span class="fact-label">Logiche e PLC</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </section>
 
 <section class="section" id="competenze">
@@ -873,7 +945,7 @@
       <p>Disponibile per collaborazioni, tirocini e nuovi progetti.</p>
       <div class="contact-links">
         <a href="mailto:nicolocalabrese2005@gmail.com" class="btn btn-primary">nicolocalabrese2005@gmail.com</a>
-        <a href="https://www.linkedin.com/in/nicol%C3%B3-calabrese-03a975214/" class="btn btn-ghost">LinkedIn</a>
+        <a href="https://linkedin.com/in/tuoprofilo" class="btn btn-ghost">LinkedIn</a>
         <a href="https://github.com/nic010c" class="btn btn-ghost">GitHub</a>
       </div>
     </div>
@@ -926,30 +998,34 @@
 <footer>© 2026 Nicolò Calabrese — Ingegneria Elettrica</footer>
 
 <script>
-  const sheets = document.querySelectorAll('.sheet');
+  const shelf = document.getElementById('shelf');
+  const books = shelf ? [...shelf.querySelectorAll('.book')] : [];
 
-  function openSheet(index) {
-    sheets.forEach(s => s.classList.toggle('lifted', s.dataset.index === String(index)));
+  function open(book) {
+    books.forEach(b => {
+      const on = b === book;
+      b.classList.toggle('open', on);
+      b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+    shelf.classList.add('has-open');
   }
   function closeAll() {
-    sheets.forEach(s => s.classList.remove('lifted'));
+    books.forEach(b => {
+      b.classList.remove('open');
+      b.setAttribute('aria-expanded', 'false');
+    });
+    shelf.classList.remove('has-open');
   }
 
-  sheets.forEach(sheet => {
-    const tab = sheet.querySelector('.tab');
-    const idx = sheet.dataset.index;
-    const toggle = (e) => {
+  books.forEach(book => {
+    book.addEventListener('click', (e) => {
       e.stopPropagation();
-      sheet.classList.contains('lifted') ? closeAll() : openSheet(idx);
-    };
-    tab.addEventListener('click', toggle);
-    tab.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); }
+      book.classList.contains('open') ? closeAll() : open(book);
     });
   });
 
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.folder-stage')) closeAll();
+    if (shelf && !e.target.closest('#shelf')) closeAll();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeAll();
