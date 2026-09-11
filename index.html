@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nicolò Calabrese — Ingegneria Elettrica</title>
-<meta name="description" content="Portfolio di Nicolò Calabrese, progettista e disegnatore elettrico. Quadri industriali, impianti BT/MT, automazione PLC.">
+<meta name="description" content="Portfolio di Nicolò Calabrese, progettista e disegnatore elettrico in PRISMA Impianti e studente di Ingegneria Elettrica al Politecnico di Torino. SPAC Automazione, EPLAN P8, Siemens TIA Portal.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Cpath%20d%3D%27M19.6%202.5%20L7%2017.6%20a1%201%200%200%200%20.8%201.7%20h5.4%20L11.9%2029.2%20a.7.7%200%200%200%201.3.5%20L25.9%2014.6%20a1%201%200%200%200-.8-1.7%20h-5.7%20L21%203.4%20a.7.7%200%200%200-1.4-.9%20z%27%20fill%3D%27%233B5BFF%27%2F%3E%3C%2Fsvg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@
 
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 
-  #progetti, #chisono, #competenze, #contatti { scroll-margin-top: 92px; }
+  #progetti, #chisono, #esperienza, #competenze, #formazione, #contatti { scroll-margin-top: 92px; }
 
   /* ===================== NAV ===================== */
   header {
@@ -251,8 +251,9 @@
 
   /* ===================== MARQUEE ===================== */
   .marquee-section { padding: 46px 0 10px; }
-  .marquee-wrap { }
+  .marquee-wrap { width: 100%; }
   .marquee-label {
+    margin-left: 28px;
     font-size: 0.78rem;
     color: var(--ink-soft);
     letter-spacing: 0.04em;
@@ -265,8 +266,8 @@
     white-space: nowrap;
     position: relative;
     padding: 6px 0;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
   }
   .logos:hover .logo_items { animation-play-state: paused; }
 
@@ -704,6 +705,117 @@
     border-radius: 100px;
   }
 
+  /* ===================== TIMELINE ===================== */
+  .timeline { display: flex; flex-direction: column; gap: 14px; }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+  }
+  .tl-item:first-child { border-top: none; padding-top: 6px; }
+  @media (max-width: 760px) {
+    .tl-item { grid-template-columns: 1fr; gap: 14px; }
+  }
+
+  .tl-when { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .tl-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    padding: 4px 11px;
+    border-radius: 100px;
+  }
+  .tl-date { font-size: 0.85rem; color: var(--ink-soft); }
+
+  .tl-body h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.14rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .tl-org { font-size: 0.9rem; color: var(--accent); font-weight: 500; margin-bottom: 14px; }
+  .tl-body p { font-size: 0.94rem; color: var(--ink-soft); line-height: 1.68; max-width: 62ch; }
+
+  .tl-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .tl-list li {
+    font-size: 0.8rem;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 7px;
+  }
+  .tl-note {
+    margin-top: 16px;
+    padding-left: 14px;
+    border-left: 2px solid var(--line);
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 64ch;
+  }
+
+  /* ===================== LANGUAGES ===================== */
+  .lang-row {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .lang { display: flex; flex-direction: column; gap: 3px; }
+  .lang-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .lang-level { font-size: 0.8rem; color: var(--ink-soft); }
+
+  /* ===================== EDUCATION ===================== */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 700px) { .edu-grid { grid-template-columns: 1fr; } }
+
+  .edu-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 24px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .edu-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .edu-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.99rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 5px;
+  }
+  .edu-org { font-size: 0.85rem; color: var(--ink-soft); }
+  .edu-when {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 9px;
+  }
+  .edu-main { grid-column: span 2; background: var(--surface); }
+  @media (max-width: 700px) { .edu-main { grid-column: span 1; } }
+
   /* ===================== CONTACT ===================== */
   .contact-panel {
     background: var(--surface);
@@ -748,6 +860,7 @@
     <div class="nav-links">
       <a href="#progetti">Progetti</a>
       <a href="#chisono">Chi sono</a>
+      <a href="#esperienza">Esperienza</a>
       <a href="#competenze">Competenze</a>
       <a href="#contatti">Contatti</a>
     </div>
@@ -799,7 +912,7 @@
     <div class="split-left">
       <div class="eyebrow">Ingegneria Elettrica</div>
       <h1 class="display">Progettare <em>per passione</em>.</h1>
-      <p class="lead">Disegnatore e progettista elettrico. Quadri industriali, impianti in bassa e media tensione, automazione PLC — dallo schema alla messa in servizio.</p>
+      <p class="lead">Junior Electrical Engineer in PRISMA Impianti e studente di Ingegneria Elettrica al Politecnico di Torino. Progettazione elettrica di impianti e macchine industriali con SPAC Automazione ed EPLAN P8.</p>
 
       <div class="hero-cta">
         <a href="#contatti" class="btn btn-primary">Contattami</a>
@@ -807,10 +920,11 @@
       </div>
 
       <div class="chips">
-        <span class="chip">Politecnico di Torino</span>
-        <span class="chip">Quadri BT/MT</span>
-        <span class="chip">Programmazione PLC</span>
-        <span class="chip">CAD elettrico</span>
+        <span class="chip">Politecnico di Torino — Ing. Elettrica L-9</span>
+        <span class="chip">SPAC Automazione</span>
+        <span class="chip">EPLAN P8</span>
+        <span class="chip">Siemens TIA Portal</span>
+        <span class="chip">Perito elettrotecnico — Automazione</span>
       </div>
 
     </div>
@@ -831,13 +945,13 @@
     <div class="shelf-wrap">
       <div class="shelf" id="shelf">
       <div class="book" data-index="0" role="button" tabindex="0" aria-expanded="false"
-           aria-label="Apri il volume quadri elettrici"
+           aria-label="Apri il volume coil coating line"
            style="--c1:#2B3A5C; --c2:#18223A; --tilt:0deg; --h:290px;
                   --origin:bottom center; --nudge:0">
 
         <span class="spine">
           <span class="spine-num">01</span>
-          <span class="spine-title">Quadri elettrici</span>
+          <span class="spine-title">Coil coating line</span>
           <span class="spine-num">&#9670;</span>
         </span>
 
@@ -848,10 +962,10 @@
 
           <div class="board-left">
             <div class="pg pg-title">
-              <span class="tag">Quadri elettrici</span>
-              <h3>Documentazione quadri industriali</h3>
+              <span class="tag">INCO · Marcegaglia</span>
+              <h3>Linea di verniciatura coil</h3>
               <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h20M2 12h20M2 17h20"/><circle cx="7" cy="7" r="1.6"/><circle cx="14" cy="12" r="1.6"/><circle cx="10" cy="17" r="1.6"/></svg>
             </div>
           </div>
 
@@ -867,18 +981,18 @@
               <div class="face front">
                 <div class="pg">
                   <h4>Panoramica</h4>
-                  <p>Preparazione del fascicolo tecnico di un quadro di distribuzione: dalla lettura delle specifiche alla documentazione che accompagna la carpenteria in officina e in cantiere.</p>
+                  <p>Progettazione elettrica per linea di rivestimento continuo del coil: documentazione funzionale, carpenteria dei quadri e interconnessioni di campo lungo tutta la linea.</p>
                   <div class="pg-num">1</div>
                 </div>
               </div>
               <div class="face back">
                 <div class="pg">
-                  <h4>Cosa comprende</h4>
+                  <h4>Attività svolte</h4>
                   <ul>
-              <li>Schemi unifilari di distribuzione</li>
-              <li>Schemi funzionali di comando</li>
-              <li>Layout di carpenteria e fronte quadro</li>
-              <li>Distinte materiali e siglatura morsetti</li>
+              <li>Schemi funzionali di potenza e comando</li>
+              <li>Carpenteria quadro e fronte pannello</li>
+              <li>Lista interconnessioni di campo</li>
+              <li>Calcoli di dissipazione termica</li>
                   </ul>
                   <div class="pg-num">2</div>
                 </div>
@@ -888,16 +1002,16 @@
             <div class="leaf" data-leaf="1">
               <div class="face front">
                 <div class="pg">
-                  <h4>Riferimenti</h4>
-                  <p>La parte più delicata non è disegnare lo schema, ma tenerlo allineato alle modifiche che arrivano dal campo fino al collaudo.</p>
-                  <div class="norm">Riferimento: <b>CEI EN 61439-1/2</b></div>
+                  <h4>Note</h4>
+                  <p>Su una linea continua ogni sezione dipende dalla precedente: la documentazione deve reggere le modifiche senza perdere la corrispondenza con il campo.</p>
+                  <div class="norm">Software: <b>SPAC Automazione</b> · <b>EPLAN P8</b></div>
                   <div class="pg-num">3</div>
                 </div>
               </div>
               <div class="face back">
                 <div class="pg pg-end">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M12 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
-                  <span>Nicolò Calabrese</span>
+                  <span>PRISMA Impianti S.p.A.</span>
                 </div>
               </div>
             </div>
@@ -913,13 +1027,13 @@
       </div>
 
       <div class="book" data-index="1" role="button" tabindex="0" aria-expanded="false"
-           aria-label="Apri il volume logiche plc"
+           aria-label="Apri il volume navi posacavi"
            style="--c1:#3B5BFF; --c2:#2036B8; --tilt:0deg; --h:268px;
                   --origin:bottom center; --nudge:0">
 
         <span class="spine">
           <span class="spine-num">02</span>
-          <span class="spine-title">Logiche PLC</span>
+          <span class="spine-title">Navi posacavi</span>
           <span class="spine-num">&#9670;</span>
         </span>
 
@@ -930,10 +1044,10 @@
 
           <div class="board-left">
             <div class="pg pg-title">
-              <span class="tag">Automazione</span>
-              <h3>Logiche di controllo PLC</h3>
+              <span class="tag">Prysmian</span>
+              <h3>Impianti per navi posacavi</h3>
               <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M4 10H2M4 14H2M22 10h-2M22 14h-2M10 4V2M14 4V2M10 22v-2M14 22v-2"/></svg>
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18l-2 4H5l-2-4z"/><path d="M12 3v10M7 9l5-6 5 6"/></svg>
             </div>
           </div>
 
@@ -949,18 +1063,18 @@
               <div class="face front">
                 <div class="pg">
                   <h4>Panoramica</h4>
-                  <p>Sviluppo e messa a punto delle logiche di comando per macchine e linee, con la gestione degli ingressi e delle uscite di campo.</p>
+                  <p>Documentazione elettrica per gli impianti di bordo delle navi posacavi, con la gestione dei segnali PLC e delle interconnessioni tra i quadri distribuiti.</p>
                   <div class="pg-num">1</div>
                 </div>
               </div>
               <div class="face back">
                 <div class="pg">
-                  <h4>Cosa comprende</h4>
+                  <h4>Attività svolte</h4>
                   <ul>
-              <li>Logiche di comando e sequenze</li>
-              <li>Mappatura e gestione degli I/O</li>
-              <li>Sicurezze e consensi di marcia</li>
-              <li>Prove funzionali in avviamento</li>
+              <li>Schemi funzionali di bordo</li>
+              <li>Gestione e mappatura dei bit PLC</li>
+              <li>Distinte materiali per quadro</li>
+              <li>Liste di interconnessione tra zone</li>
                   </ul>
                   <div class="pg-num">2</div>
                 </div>
@@ -970,16 +1084,16 @@
             <div class="leaf" data-leaf="1">
               <div class="face front">
                 <div class="pg">
-                  <h4>Riferimenti</h4>
-                  <p>È il punto in cui il progetto smette di essere carta: la logica o muove la macchina come previsto, oppure no.</p>
-                  <div class="norm">Ambito: <b>Automazione industriale</b></div>
+                  <h4>Note</h4>
+                  <p>A bordo lo spazio è vincolato e le distanze sono lunghe: la scelta di dove passano i segnali conta quanto lo schema stesso.</p>
+                  <div class="norm">Software: <b>EPLAN P8</b></div>
                   <div class="pg-num">3</div>
                 </div>
               </div>
               <div class="face back">
                 <div class="pg pg-end">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M12 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
-                  <span>Nicolò Calabrese</span>
+                  <span>PRISMA Impianti S.p.A.</span>
                 </div>
               </div>
             </div>
@@ -995,13 +1109,13 @@
       </div>
 
       <div class="book" data-index="2" role="button" tabindex="0" aria-expanded="false"
-           aria-label="Apri il volume impianti bt / mt"
+           aria-label="Apri il volume trattamento gomme"
            style="--c1:#14B88A; --c2:#087A59; --tilt:0deg; --h:300px;
                   --origin:bottom center; --nudge:0">
 
         <span class="spine">
           <span class="spine-num">03</span>
-          <span class="spine-title">Impianti BT / MT</span>
+          <span class="spine-title">Trattamento gomme</span>
           <span class="spine-num">&#9670;</span>
         </span>
 
@@ -1012,10 +1126,10 @@
 
           <div class="board-left">
             <div class="pg pg-title">
-              <span class="tag">Impianti BT / MT</span>
-              <h3>Distribuzione in bassa e media tensione</h3>
+              <span class="tag">Pirelli</span>
+              <h3>Impianti trattamento gomme</h3>
               <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/><path d="M12 3v3.6M12 17.4V21M3 12h3.6M17.4 12H21"/></svg>
             </div>
           </div>
 
@@ -1031,18 +1145,18 @@
               <div class="face front">
                 <div class="pg">
                   <h4>Panoramica</h4>
-                  <p>Dimensionamento delle linee di distribuzione e scelta delle protezioni, con le verifiche che ne garantiscono il coordinamento.</p>
+                  <p>Progettazione elettrica e documentazione tecnica per impianti di trattamento all'interno del ciclo produttivo degli pneumatici.</p>
                   <div class="pg-num">1</div>
                 </div>
               </div>
               <div class="face back">
                 <div class="pg">
-                  <h4>Cosa comprende</h4>
+                  <h4>Attività svolte</h4>
                   <ul>
-              <li>Calcolo delle correnti d'impiego</li>
-              <li>Sezionamento e scelta dei cavi</li>
-              <li>Selettività e protezione dai cortocircuiti</li>
-              <li>Verifica delle cadute di tensione</li>
+              <li>Schemi funzionali di processo</li>
+              <li>Carpenteria e layout dei quadri</li>
+              <li>Distinta materiali e siglatura</li>
+              <li>Verifiche termiche di quadro</li>
                   </ul>
                   <div class="pg-num">2</div>
                 </div>
@@ -1052,16 +1166,16 @@
             <div class="leaf" data-leaf="1">
               <div class="face front">
                 <div class="pg">
-                  <h4>Riferimenti</h4>
-                  <p>Un impianto dimensionato bene si riconosce dopo anni: nessuno se ne accorge, perché non dà problemi.</p>
-                  <div class="norm">Riferimento: <b>CEI 64-8</b></div>
+                  <h4>Note</h4>
+                  <p>In produzione continua il fermo impianto costa: le protezioni e i ricambi vanno scelti pensando anche alla manutenzione.</p>
+                  <div class="norm">Software: <b>SPAC Automazione</b></div>
                   <div class="pg-num">3</div>
                 </div>
               </div>
               <div class="face back">
                 <div class="pg pg-end">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M12 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
-                  <span>Nicolò Calabrese</span>
+                  <span>PRISMA Impianti S.p.A.</span>
                 </div>
               </div>
             </div>
@@ -1077,13 +1191,13 @@
       </div>
 
       <div class="book" data-index="3" role="button" tabindex="0" aria-expanded="false"
-           aria-label="Apri il volume illuminotecnica"
+           aria-label="Apri il volume macchine speciali"
            style="--c1:#F0862B; --c2:#C85A14; --tilt:-13deg; --h:252px;
                   --origin:bottom left; --nudge:58px">
 
         <span class="spine">
           <span class="spine-num">04</span>
-          <span class="spine-title">Illuminotecnica</span>
+          <span class="spine-title">Macchine speciali</span>
           <span class="spine-num">&#9670;</span>
         </span>
 
@@ -1094,10 +1208,10 @@
 
           <div class="board-left">
             <div class="pg pg-title">
-              <span class="tag">Illuminotecnica</span>
-              <h3>Calcolo illuminotecnico</h3>
+              <span class="tag">Unimeccanica</span>
+              <h3>Scarificatrice e taglio al volo</h3>
               <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0 3 3l6.3-6.3-3-3-6.3 6.3z" transform="translate(-1 1) scale(0.85)"/><path d="M4 20l7-7M9 4l4 4"/></svg>
             </div>
           </div>
 
@@ -1113,18 +1227,18 @@
               <div class="face front">
                 <div class="pg">
                   <h4>Panoramica</h4>
-                  <p>Progetto degli impianti di illuminazione per ambienti di lavoro, con verifica dei livelli di illuminamento e dell'uniformità richiesti.</p>
+                  <p>Progettazione elettrica di macchine speciali su commessa: scarificatrice e macchina per il taglio al volo, dalla definizione dei quadri alla gestione dei segnali.</p>
                   <div class="pg-num">1</div>
                 </div>
               </div>
               <div class="face back">
                 <div class="pg">
-                  <h4>Cosa comprende</h4>
+                  <h4>Attività svolte</h4>
                   <ul>
-              <li>Calcolo dell'illuminamento medio</li>
-              <li>Scelta e posizionamento dei corpi</li>
-              <li>Verifica di uniformità e abbagliamento</li>
-              <li>Illuminazione di sicurezza</li>
+              <li>Funzionali elettrici di macchina</li>
+              <li>Quadri di comando e bordo macchina</li>
+              <li>Gestione bit PLC e consensi</li>
+              <li>Distinte materiali di commessa</li>
                   </ul>
                   <div class="pg-num">2</div>
                 </div>
@@ -1134,16 +1248,16 @@
             <div class="leaf" data-leaf="1">
               <div class="face front">
                 <div class="pg">
-                  <h4>Riferimenti</h4>
-                  <p>Il numero di targa dice poco: conta come la luce arriva davvero sul piano di lavoro.</p>
-                  <div class="norm">Riferimento: <b>EN 12464-1</b></div>
+                  <h4>Note</h4>
+                  <p>Sulle macchine su commessa non esiste uno schema standard da riusare: ogni progetto riparte dalle esigenze del cliente.</p>
+                  <div class="norm">Software: <b>SPAC Automazione</b> · <b>EPLAN P8</b></div>
                   <div class="pg-num">3</div>
                 </div>
               </div>
               <div class="face back">
                 <div class="pg pg-end">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B6BCCB" stroke-width="1.6"><path d="M12 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
-                  <span>Nicolò Calabrese</span>
+                  <span>PRISMA Impianti S.p.A.</span>
                 </div>
               </div>
             </div>
@@ -1162,129 +1276,171 @@
     </div>
     <div class="shelf-hint">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/></svg>
-      <span>Clicca un dorso per aprire il volume, poi sfoglia le pagine</span>
+      <span>Impianti su cui ho lavorato — clicca un dorso e sfoglia le pagine</span>
     </div>
 </section>
 
 <section class="marquee-section">
-  <div class="wrap marquee-wrap">
+  <div class="marquee-wrap">
     <div class="marquee-label">Strumenti, ambiti e riferimenti normativi</div>
     <div class="logos">
       <div class="logo_items">
       <span class="logo"><img src="logo-polito.png" alt="Politecnico di Torino"></span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CAD elettrico</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Schemi unifilari</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Liste interconnessioni</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Carpenteria quadro</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Schemi funzionali</span>
       <span class="logo"><img src="logo-spac.png" alt="SPAC Automazione"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Programmazione PLC</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Logiche di comando</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Quadri BT</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Media tensione</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Gestione bit PLC</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Dissipazione termica</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Siemens TIA Portal</span>
       <span class="logo tall"><img src="logo-eplan.png" alt="EPLAN"></span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Dimensionamento linee</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Coordinamento protezioni</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CEI EN 61439</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CEI 64-8</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Pannelli HMI</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Funzionali pneumatici</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Robotica COMAU</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Distinte materiali</span>
       <span class="logo tall"><img src="plc-s7-1500.png" alt="PLC Siemens SIMATIC S7-1500"></span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>EN 12464-1</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Illuminotecnica</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Quadri industriali</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Macchine su commessa</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Microcontrollori</span>
       </div><div class="logo_items" aria-hidden="true">
       <span class="logo"><img src="logo-polito.png" alt="Politecnico di Torino"></span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CAD elettrico</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Schemi unifilari</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Liste interconnessioni</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Carpenteria quadro</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Schemi funzionali</span>
       <span class="logo"><img src="logo-spac.png" alt="SPAC Automazione"></span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Programmazione PLC</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Logiche di comando</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Quadri BT</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Media tensione</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Gestione bit PLC</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Dissipazione termica</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Siemens TIA Portal</span>
       <span class="logo tall"><img src="logo-eplan.png" alt="EPLAN"></span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Dimensionamento linee</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Coordinamento protezioni</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CEI EN 61439</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>CEI 64-8</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Pannelli HMI</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Funzionali pneumatici</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Robotica COMAU</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Distinte materiali</span>
       <span class="logo tall"><img src="plc-s7-1500.png" alt="PLC Siemens SIMATIC S7-1500"></span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>EN 12464-1</span>
-      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Illuminotecnica</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Quadri industriali</span>
+      <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Macchine su commessa</span>
       <span class="item"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Microcontrollori</span>
       </div>
-    </div>
     </div>
   </div>
 </section>
 
 <section class="section" id="chisono">
   <div class="wrap">
-
-    <div class="about-body">
       <div class="section-eyebrow">Chi sono</div>
-      <h2 class="display">Studio la teoria, la verifico in cantiere</h2>
+      <h2 class="display">Progettista elettrico, studente di ingegneria</h2>
       <a class="about-mail" href="mailto:nicolocalabrese2005@gmail.com">nicolocalabrese2005@gmail.com</a>
 
       <p class="about-text">
-        Sto completando la laurea triennale in Ingegneria Elettrica al Politecnico di Torino e lavoro come disegnatore e progettista elettrico. Mi occupo della documentazione tecnica di quadri industriali — schemi unifilari e funzionali, layout di carpenteria, distinte materiali — e di impianti in bassa e media tensione.
+        Sono progettista e disegnatore elettrico in PRISMA Impianti, dove mi occupo della documentazione tecnica di impianti e macchine industriali con SPAC Automazione ed EPLAN P8. In parallelo studio Ingegneria Elettrica al Politecnico di Torino, dipartimento DENERG, dopo il diploma di Perito Elettrotecnico ed Elettronico ad articolazione Automazione.
       </p>
       <p class="about-text">
-        Sul fronte automazione lavoro sulla programmazione PLC: logiche di comando per macchine e linee, gestione degli I/O di campo, quadri di comando. È la parte che mi interessa di più, perché è dove il progetto smette di essere carta e inizia a muovere qualcosa.
+        Il lavoro mi porta su impianti molto diversi tra loro: linee di verniciatura del coil, navi posacavi, impianti di trattamento nel ciclo degli pneumatici, macchine speciali su commessa. Ognuno ha vincoli propri, e quello che li tiene insieme è la documentazione: se regge alle modifiche che arrivano dal campo, il montaggio procede; se non regge, si perde tempo in cantiere.
       </p>
       <p class="about-text">
-        Studiare e lavorare insieme ha un vantaggio concreto: quello che vedo a lezione lo ritrovo sul campo con tutte le complicazioni che i libri semplificano, e i problemi che incontro in cantiere mi costringono a tornare sulla teoria per capirli davvero. Non è sempre comodo, ma è il motivo per cui certe cose non le dimentico più.
-      </p>
-      <p class="about-text">
-        Fuori dall'orario di lavoro smanetto con microcontrollori ed elettronica autocostruita. È lì che questa passione è cominciata, molto prima che diventasse un mestiere, ed è ancora il posto dove provo le idee senza doverne rispondere a nessuno.
+        Studiare e lavorare insieme ha un vantaggio concreto: quello che vedo a lezione lo ritrovo sul campo con tutte le complicazioni che i libri semplificano, e i problemi che incontro in cantiere mi costringono a tornare sulla teoria per capirli davvero. Fuori dall'orario di lavoro smanetto con microcontrollori ed elettronica autocostruita, che è poi il modo in cui questa passione è cominciata.
       </p>
 
       <div class="about-facts">
         <div class="fact">
+          <span class="fact-key">PRISMA Impianti S.p.A.</span>
+          <span class="fact-label">Junior Electrical Engineer, dal 2024</span>
+        </div>
+        <div class="fact">
           <span class="fact-key">Politecnico di Torino</span>
-          <span class="fact-label">Laurea triennale in corso</span>
+          <span class="fact-label">Ingegneria Elettrica L-9, in corso</span>
         </div>
         <div class="fact">
-          <span class="fact-key">Progettazione</span>
-          <span class="fact-label">Quadri e impianti BT/MT</span>
-        </div>
-        <div class="fact">
-          <span class="fact-key">Automazione</span>
-          <span class="fact-label">Logiche e PLC</span>
+          <span class="fact-key">I.T.I.S. A. Volta</span>
+          <span class="fact-label">Perito elettrotecnico, 96/100</span>
         </div>
       </div>
-    </div>
-
   </div>
+</section>
 
+<section class="section" id="esperienza">
+  <div class="wrap">
+    <div class="section-eyebrow">Esperienza</div>
+    <h2 class="display">Dove ho lavorato</h2>
+
+    <div class="timeline">
+
+      <article class="tl-item">
+        <div class="tl-when">
+          <span class="tl-badge">In corso</span>
+          <span class="tl-date">Luglio 2024 — oggi</span>
+        </div>
+        <div class="tl-body">
+          <h3>Junior Electrical Engineer</h3>
+          <div class="tl-org">PRISMA Impianti S.p.A. — Basaluzzo (AL)</div>
+          <p>Progettazione elettrica e documentazione tecnica per impianti e macchine industriali, con SPAC Automazione ed EPLAN P8.</p>
+          <ul class="tl-list">
+            <li>Schemi funzionali</li>
+            <li>Carpenteria quadro</li>
+            <li>Distinta materiali</li>
+            <li>Lista interconnessioni</li>
+            <li>Gestione bit PLC</li>
+            <li>Calcoli di dissipazione termica</li>
+          </ul>
+          <div class="tl-note">Impianti: coil coating line (INCO · Marcegaglia), navi posacavi (Prysmian), trattamento gomme (Pirelli), scarificatrice e macchina taglio al volo (Unimeccanica).</div>
+        </div>
+      </article>
+
+      <article class="tl-item">
+        <div class="tl-when">
+          <span class="tl-date">Giugno — Settembre 2023</span>
+        </div>
+        <div class="tl-body">
+          <h3>Stage: programmatore PLC e progettista elettrico</h3>
+          <div class="tl-org">GEFIT S.p.A. — Alessandria</div>
+          <p>Esperienza pratica su programmazione e progettazione, a contatto con le macchine in officina.</p>
+          <ul class="tl-list">
+            <li>Programmazione PLC e HMI (Siemens TIA Portal)</li>
+            <li>Funzionali elettrici</li>
+            <li>Funzionali pneumatici</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
 </section>
 
 <section class="section" id="competenze">
   <div class="wrap">
     <div class="section-eyebrow">Competenze</div>
-    <h2 class="display">Aree tecniche</h2>
+    <h2 class="display">Strumenti e aree tecniche</h2>
 
     <div class="skill-grid">
       <div class="skill-card">
         <div class="skill-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
-        <h3>Progettazione</h3>
+        <h3>Progettazione elettrica</h3>
         <div class="pills">
-          <span class="pill">Schemi unifilari</span>
+          <span class="pill">SPAC Automazione</span>
+          <span class="pill">EPLAN P8</span>
           <span class="pill">Schemi funzionali</span>
-          <span class="pill">Layout quadri</span>
+          <span class="pill">Carpenteria quadro</span>
           <span class="pill">Distinte materiali</span>
-          <span class="pill">CAD elettrico</span>
+          <span class="pill">Liste interconnessioni</span>
         </div>
       </div>
 
       <div class="skill-card">
         <div class="skill-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M4 10H2M4 14H2M22 10h-2M22 14h-2M10 4V2M14 4V2M10 22v-2M14 22v-2"/></svg>
         </div>
         <h3>Automazione</h3>
         <div class="pills">
+          <span class="pill">Siemens TIA Portal</span>
           <span class="pill">Programmazione PLC</span>
-          <span class="pill">Logiche di comando</span>
-          <span class="pill">Gestione I/O</span>
-          <span class="pill">Quadri di comando</span>
+          <span class="pill">Pannelli HMI</span>
+          <span class="pill">Gestione bit PLC</span>
+          <span class="pill">Funzionali pneumatici</span>
+          <span class="pill">Robotica COMAU</span>
         </div>
       </div>
 
@@ -1292,14 +1448,70 @@
         <div class="skill-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
         </div>
-        <h3>Impianti</h3>
+        <h3>Impianti e calcoli</h3>
         <div class="pills">
+          <span class="pill">Quadri industriali</span>
+          <span class="pill">Dissipazione termica</span>
           <span class="pill">Bassa tensione</span>
-          <span class="pill">Media tensione</span>
-          <span class="pill">Dimensionamento linee</span>
-          <span class="pill">Protezioni</span>
-          <span class="pill">Illuminotecnica</span>
+          <span class="pill">Macchine su commessa</span>
+          <span class="pill">Mobilità sostenibile</span>
         </div>
+      </div>
+    </div>
+
+    <div class="lang-row">
+      <div class="lang">
+        <span class="lang-name">Italiano</span>
+        <span class="lang-level">Madrelingua</span>
+      </div>
+      <div class="lang">
+        <span class="lang-name">Inglese</span>
+        <span class="lang-level">B2 — Cambridge First</span>
+      </div>
+      <div class="lang">
+        <span class="lang-name">Spagnolo</span>
+        <span class="lang-level">A2 — da autodidatta</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="formazione">
+  <div class="wrap">
+    <div class="section-eyebrow">Formazione</div>
+    <h2 class="display">Studi e certificazioni</h2>
+
+    <div class="edu-grid">
+      <div class="edu-card edu-main">
+        <div class="edu-when">In corso</div>
+        <h3>Laurea in Ingegneria Elettrica (L-9)</h3>
+        <div class="edu-org">Politecnico di Torino — dipartimento DENERG</div>
+      </div>
+
+      <div class="edu-card edu-main">
+        <div class="edu-when">2019 — 2024</div>
+        <h3>Perito Elettrotecnico ed Elettronico, art. Automazione</h3>
+        <div class="edu-org">I.T.I.S. Alessandro Volta, Alessandria — 96/100</div>
+      </div>
+
+      <div class="edu-card">
+        <h3>Patentino della robotica</h3>
+        <div class="edu-org">COMAU</div>
+      </div>
+
+      <div class="edu-card">
+        <h3>IT Essentials</h3>
+        <div class="edu-org">CISCO Networking Academy</div>
+      </div>
+
+      <div class="edu-card">
+        <h3>B2 First Certificate</h3>
+        <div class="edu-org">Cambridge — British School Asti</div>
+      </div>
+
+      <div class="edu-card">
+        <h3>Progettazione e manutenzione dei sistemi di mobilità sostenibile</h3>
+        <div class="edu-org">Rete E-Mobility</div>
       </div>
     </div>
   </div>
@@ -1309,7 +1521,7 @@
   <div class="wrap">
     <div class="contact-panel">
       <h2 class="display">Parliamone</h2>
-      <p>Disponibile per collaborazioni, tirocini e nuovi progetti.</p>
+      <p>Disponibile per collaborazioni e nuovi progetti.</p>
       <div class="contact-links">
         <a href="mailto:nicolocalabrese2005@gmail.com" class="btn btn-primary">nicolocalabrese2005@gmail.com</a>
         <a href="https://linkedin.com/in/tuoprofilo" class="btn btn-ghost">LinkedIn</a>
