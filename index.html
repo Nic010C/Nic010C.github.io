@@ -266,10 +266,7 @@
     white-space: nowrap;
     position: relative;
     padding: 6px 0;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
   }
-  .logos:hover .logo_items { animation-play-state: paused; }
 
   .logo_items {
     display: inline-block;
@@ -364,20 +361,18 @@
     height: var(--h, 276px);
     min-width: 0;
     cursor: pointer;
-    transform-style: preserve-3d;
     transform-origin: var(--origin, bottom center);
     transform: rotate(var(--tilt, 0deg));
     margin-left: var(--nudge, 0);
-    transition: flex-basis 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.55s cubic-bezier(0.34, 1.35, 0.5, 1),
-                margin 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.55s cubic-bezier(0.34, 1.35, 0.5, 1);
   }
   .book:not(.open):hover,
   .book:not(.open):focus-visible {
     transform: rotate(calc(var(--tilt, 0deg) * 0.25)) translateY(-22px);
   }
   .book:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+
+  .volume { position: absolute; inset: 0; }
 
   /* ---------- spine ---------- */
   .spine {
@@ -397,7 +392,7 @@
     box-shadow: 0 14px 28px rgba(17,19,24,0.24),
                 inset -3px 0 6px rgba(0,0,0,0.24),
                 inset 3px 0 4px rgba(255,255,255,0.16);
-    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .spine::before, .spine::after {
     content: '';
@@ -426,24 +421,32 @@
   /* ---------- the opened book ---------- */
   .spread {
     position: absolute;
-    inset: 0;
-    border-radius: 4px 6px 6px 4px;
-    background: #fff;
-    opacity: 0;
-    pointer-events: none;
-    perspective: 2200px;
-    transform-origin: left center;
-    transform: rotateY(-88deg);
-    box-shadow: 0 30px 62px rgba(17,19,24,0.26);
-    transition: opacity 0.3s ease, transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
+    left: 0;
+    bottom: 0;
+    width: min(620px, 84vw);
+    height: 350px;
+    background: transparent;
+    display: none;
+    perspective: 2400px;
+    perspective-origin: 50% 45%;
   }
   .book.open .spread {
-    opacity: 1;
-    transform: rotateY(0deg);
+    display: block;
     pointer-events: auto;
-    transition: opacity 0.28s ease 0.16s,
-                transform 0.62s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
   }
+  /* the shadow the open book casts, arriving as the cover settles */
+  .spread::before {
+    content: '';
+    position: absolute;
+    left: 2%; right: 2%; bottom: -14px;
+    height: 26px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center,
+                rgba(17,19,24,0.30), rgba(17,19,24,0) 72%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .book.cover-open .spread::before { opacity: 1; }
   /* gutter shadow down the middle */
   .spread::after {
     content: '';
@@ -451,25 +454,44 @@
     top: 0; bottom: 0; left: 50%;
     width: 36px;
     margin-left: -18px;
-    z-index: 40;
+    z-index: 2;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.4s;
     background: linear-gradient(90deg,
       rgba(17,19,24,0) 0%, rgba(17,19,24,0.09) 42%,
       rgba(17,19,24,0.14) 50%, rgba(17,19,24,0.09) 58%, rgba(17,19,24,0) 100%);
   }
+  .book.cover-open .spread::after { opacity: 1; }
 
   .board-left, .board-right {
     position: absolute;
     top: 0; bottom: 0;
     width: 50%;
   }
-  .board-left { left: 0; z-index: 1; }
-  .board-right { right: 0; z-index: 0; }
+  /* the left-hand page, uncovered as the cover swings across */
+  .board-left {
+    left: 0;
+    z-index: 1;
+    background: #fff;
+    border-radius: 5px 0 0 5px;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.55s;
+  }
+  /* under the sheets, on the right */
+  .board-right {
+    right: 0;
+    z-index: 0;
+    background: #fff;
+    border-radius: 0 6px 6px 0;
+  }
+  .book.cover-open .board-left { opacity: 1; }
 
   .leaves {
     position: absolute;
     top: 0; bottom: 0;
     left: 50%; right: 0;
+    z-index: 5;
     transform-style: preserve-3d;
   }
   .leaf {
@@ -478,9 +500,35 @@
     transform-style: preserve-3d;
     transform-origin: left center;
     transform: rotateY(0deg);
-    transition: transform 0.85s cubic-bezier(0.42, 0, 0.2, 1);
+    will-change: transform;
+    /* slow to break away, quick through the middle, soft landing */
+    transition: transform 0.92s cubic-bezier(0.42, 0.02, 0.18, 1);
   }
   .leaf.turned { transform: rotateY(-180deg); }
+
+  /* the cover is heavier than a page: it takes longer and settles harder */
+  .leaf-cover {
+    transition: transform 1.15s cubic-bezier(0.38, 0.02, 0.16, 1);
+  }
+
+  /* shading that sweeps across a sheet while it is in motion */
+  .face::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.42s ease;
+  }
+  .face.front::after {
+    background: linear-gradient(100deg,
+                rgba(17,19,24,0.26) 0%, rgba(17,19,24,0.08) 26%, rgba(17,19,24,0) 55%);
+  }
+  .face.back::after {
+    background: linear-gradient(260deg,
+                rgba(17,19,24,0.22) 0%, rgba(17,19,24,0.06) 26%, rgba(17,19,24,0) 55%);
+  }
+  .leaf.turning .face::after { opacity: 1; }
   .face {
     position: absolute;
     inset: 0;
@@ -489,6 +537,47 @@
     overflow: hidden;
   }
   .face.back { transform: rotateY(180deg); }
+
+  .leaf-cover .face.front {
+    background: linear-gradient(142deg, var(--c1), var(--c2));
+    color: #fff;
+    border-radius: 3px 8px 8px 3px;
+    box-shadow: inset 9px 0 16px -8px rgba(0,0,0,0.45),
+                0 14px 30px rgba(17,19,24,0.24);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 28px 26px 34px;
+  }
+  /* hinge groove along the spine edge of the cover */
+  .leaf-cover .face.front::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 12px;
+    width: 2px;
+    background: rgba(0,0,0,0.22);
+  }
+  .cover-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .cover-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.14rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .cover-rule {
+    width: 46px;
+    height: 2px;
+    background: rgba(255,255,255,0.55);
+    margin: 14px 0 12px;
+  }
+  .cover-client { font-size: 0.78rem; opacity: 0.8; letter-spacing: 0.04em; }
+  .leaf-cover .face.back { border-radius: 5px 0 0 5px; }
   /* paper edge shading so a turning leaf reads as a sheet */
   .face.front { box-shadow: inset 7px 0 14px -8px rgba(17,19,24,0.28); }
   .face.back  { box-shadow: inset -7px 0 14px -8px rgba(17,19,24,0.28); }
@@ -520,6 +609,12 @@
     margin-top: 14px;
   }
   .pg-title .p-ico { opacity: 0.9; margin-top: auto; }
+  .pg-title .pg-lead {
+    margin-top: 16px;
+    font-size: 0.88rem;
+    line-height: 1.62;
+    color: rgba(255,255,255,0.88);
+  }
 
   .pg h4 {
     font-family: 'Space Grotesk', sans-serif;
@@ -617,7 +712,9 @@
     margin-left: 0;
     cursor: default;
   }
-  .book.open .spine { transform: rotateY(88deg); opacity: 0; }
+  .book.open .spine {
+    display: none;
+  }
   .shelf.has-open .book:not(.open) { flex-basis: 46px; }
 
   .shelf-hint {
@@ -635,9 +732,10 @@
     .book { flex-basis: 46px; }
     .shelf.has-open .book:not(.open) { flex-basis: 30px; }
     .book.open { flex: 0 0 90vw; height: 400px; }
+    .spread { width: 90vw; height: 400px; }
     .spine-title { font-size: 0.74rem; }
     .board-left { display: none; }
-    .board-right, .leaves { left: 0; width: 100%; }
+    .board-right, .leaves { left: 0; right: 0; width: auto; }
     .spread::after { display: none; }
     .pg { padding: 22px 22px 20px; }
     .pg-title h3 { font-size: 1.2rem; }
@@ -949,25 +1047,19 @@
            style="--c1:#2B3A5C; --c2:#18223A; --tilt:0deg; --h:290px;
                   --origin:bottom center; --nudge:0">
 
-        <span class="spine">
+        <div class="volume">
+          <span class="spine">
           <span class="spine-num">01</span>
           <span class="spine-title">Coil coating line</span>
           <span class="spine-num">&#9670;</span>
         </span>
 
-        <div class="spread">
+          <div class="spread">
           <button class="close-book" aria-label="Chiudi il volume">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
 
-          <div class="board-left">
-            <div class="pg pg-title">
-              <span class="tag">INCO · Marcegaglia</span>
-              <h3>Linea di verniciatura coil</h3>
-              <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h20M2 12h20M2 17h20"/><circle cx="7" cy="7" r="1.6"/><circle cx="14" cy="12" r="1.6"/><circle cx="10" cy="17" r="1.6"/></svg>
-            </div>
-          </div>
+          <div class="board-left"></div>
 
           <div class="board-right">
             <div class="pg pg-end">
@@ -977,10 +1069,27 @@
           </div>
 
           <div class="leaves">
+            <div class="leaf leaf-cover" data-leaf="cover">
+              <div class="face front">
+                <span class="cover-num">01</span>
+                <span>
+                  <span class="cover-title">Linea di verniciatura coil</span>
+                  <span class="cover-rule"></span>
+                  <span class="cover-client">INCO · MARCEGAGLIA</span>
+                </span>
+              </div>
+              <div class="face back">
+                <div class="pg pg-title">
+                  <span class="tag">INCO · MARCEGAGLIA</span>
+                  <h3>Linea di verniciatura coil</h3>
+                  <p class="pg-lead">Progettazione elettrica per linea di rivestimento continuo del coil: documentazione funzionale, carpenteria dei quadri e interconnessioni di campo lungo tutta la linea.</p>
+                </div>
+              </div>
+            </div>
             <div class="leaf" data-leaf="0">
               <div class="face front">
                 <div class="pg">
-                  <h4>Panoramica</h4>
+                  <h4>Coil coating line</h4>
                   <p>Progettazione elettrica per linea di rivestimento continuo del coil: documentazione funzionale, carpenteria dei quadri e interconnessioni di campo lungo tutta la linea.</p>
                   <div class="pg-num">1</div>
                 </div>
@@ -1023,6 +1132,7 @@
           <button class="flip flip-next" aria-label="Pagina successiva">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
           </button>
+          </div>
         </div>
       </div>
 
@@ -1031,25 +1141,19 @@
            style="--c1:#3B5BFF; --c2:#2036B8; --tilt:0deg; --h:268px;
                   --origin:bottom center; --nudge:0">
 
-        <span class="spine">
+        <div class="volume">
+          <span class="spine">
           <span class="spine-num">02</span>
           <span class="spine-title">Navi posacavi</span>
           <span class="spine-num">&#9670;</span>
         </span>
 
-        <div class="spread">
+          <div class="spread">
           <button class="close-book" aria-label="Chiudi il volume">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
 
-          <div class="board-left">
-            <div class="pg pg-title">
-              <span class="tag">Prysmian</span>
-              <h3>Impianti per navi posacavi</h3>
-              <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18l-2 4H5l-2-4z"/><path d="M12 3v10M7 9l5-6 5 6"/></svg>
-            </div>
-          </div>
+          <div class="board-left"></div>
 
           <div class="board-right">
             <div class="pg pg-end">
@@ -1059,10 +1163,27 @@
           </div>
 
           <div class="leaves">
+            <div class="leaf leaf-cover" data-leaf="cover">
+              <div class="face front">
+                <span class="cover-num">02</span>
+                <span>
+                  <span class="cover-title">Impianti per navi posacavi</span>
+                  <span class="cover-rule"></span>
+                  <span class="cover-client">PRYSMIAN</span>
+                </span>
+              </div>
+              <div class="face back">
+                <div class="pg pg-title">
+                  <span class="tag">PRYSMIAN</span>
+                  <h3>Impianti per navi posacavi</h3>
+                  <p class="pg-lead">Documentazione elettrica per gli impianti di bordo delle navi posacavi, con la gestione dei segnali PLC e delle interconnessioni tra i quadri distribuiti.</p>
+                </div>
+              </div>
+            </div>
             <div class="leaf" data-leaf="0">
               <div class="face front">
                 <div class="pg">
-                  <h4>Panoramica</h4>
+                  <h4>Navi posacavi</h4>
                   <p>Documentazione elettrica per gli impianti di bordo delle navi posacavi, con la gestione dei segnali PLC e delle interconnessioni tra i quadri distribuiti.</p>
                   <div class="pg-num">1</div>
                 </div>
@@ -1105,6 +1226,7 @@
           <button class="flip flip-next" aria-label="Pagina successiva">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
           </button>
+          </div>
         </div>
       </div>
 
@@ -1113,25 +1235,19 @@
            style="--c1:#14B88A; --c2:#087A59; --tilt:0deg; --h:300px;
                   --origin:bottom center; --nudge:0">
 
-        <span class="spine">
+        <div class="volume">
+          <span class="spine">
           <span class="spine-num">03</span>
           <span class="spine-title">Trattamento gomme</span>
           <span class="spine-num">&#9670;</span>
         </span>
 
-        <div class="spread">
+          <div class="spread">
           <button class="close-book" aria-label="Chiudi il volume">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
 
-          <div class="board-left">
-            <div class="pg pg-title">
-              <span class="tag">Pirelli</span>
-              <h3>Impianti trattamento gomme</h3>
-              <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/><path d="M12 3v3.6M12 17.4V21M3 12h3.6M17.4 12H21"/></svg>
-            </div>
-          </div>
+          <div class="board-left"></div>
 
           <div class="board-right">
             <div class="pg pg-end">
@@ -1141,10 +1257,27 @@
           </div>
 
           <div class="leaves">
+            <div class="leaf leaf-cover" data-leaf="cover">
+              <div class="face front">
+                <span class="cover-num">03</span>
+                <span>
+                  <span class="cover-title">Impianti trattamento gomme</span>
+                  <span class="cover-rule"></span>
+                  <span class="cover-client">PIRELLI</span>
+                </span>
+              </div>
+              <div class="face back">
+                <div class="pg pg-title">
+                  <span class="tag">PIRELLI</span>
+                  <h3>Impianti trattamento gomme</h3>
+                  <p class="pg-lead">Progettazione elettrica e documentazione tecnica per impianti di trattamento all'interno del ciclo produttivo degli pneumatici.</p>
+                </div>
+              </div>
+            </div>
             <div class="leaf" data-leaf="0">
               <div class="face front">
                 <div class="pg">
-                  <h4>Panoramica</h4>
+                  <h4>Trattamento gomme</h4>
                   <p>Progettazione elettrica e documentazione tecnica per impianti di trattamento all'interno del ciclo produttivo degli pneumatici.</p>
                   <div class="pg-num">1</div>
                 </div>
@@ -1187,6 +1320,7 @@
           <button class="flip flip-next" aria-label="Pagina successiva">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
           </button>
+          </div>
         </div>
       </div>
 
@@ -1195,25 +1329,19 @@
            style="--c1:#F0862B; --c2:#C85A14; --tilt:-13deg; --h:252px;
                   --origin:bottom left; --nudge:58px">
 
-        <span class="spine">
+        <div class="volume">
+          <span class="spine">
           <span class="spine-num">04</span>
           <span class="spine-title">Macchine speciali</span>
           <span class="spine-num">&#9670;</span>
         </span>
 
-        <div class="spread">
+          <div class="spread">
           <button class="close-book" aria-label="Chiudi il volume">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
 
-          <div class="board-left">
-            <div class="pg pg-title">
-              <span class="tag">Unimeccanica</span>
-              <h3>Scarificatrice e taglio al volo</h3>
-              <svg class="p-ico" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0 3 3l6.3-6.3-3-3-6.3 6.3z" transform="translate(-1 1) scale(0.85)"/><path d="M4 20l7-7M9 4l4 4"/></svg>
-            </div>
-          </div>
+          <div class="board-left"></div>
 
           <div class="board-right">
             <div class="pg pg-end">
@@ -1223,10 +1351,27 @@
           </div>
 
           <div class="leaves">
+            <div class="leaf leaf-cover" data-leaf="cover">
+              <div class="face front">
+                <span class="cover-num">04</span>
+                <span>
+                  <span class="cover-title">Scarificatrice e taglio al volo</span>
+                  <span class="cover-rule"></span>
+                  <span class="cover-client">UNIMECCANICA</span>
+                </span>
+              </div>
+              <div class="face back">
+                <div class="pg pg-title">
+                  <span class="tag">UNIMECCANICA</span>
+                  <h3>Scarificatrice e taglio al volo</h3>
+                  <p class="pg-lead">Progettazione elettrica di macchine speciali su commessa: scarificatrice e macchina per il taglio al volo, dalla definizione dei quadri alla gestione dei segnali.</p>
+                </div>
+              </div>
+            </div>
             <div class="leaf" data-leaf="0">
               <div class="face front">
                 <div class="pg">
-                  <h4>Panoramica</h4>
+                  <h4>Macchine speciali</h4>
                   <p>Progettazione elettrica di macchine speciali su commessa: scarificatrice e macchina per il taglio al volo, dalla definizione dei quadri alla gestione dei segnali.</p>
                   <div class="pg-num">1</div>
                 </div>
@@ -1269,6 +1414,7 @@
           <button class="flip flip-next" aria-label="Pagina successiva">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
           </button>
+          </div>
         </div>
       </div>
       </div>
@@ -1580,48 +1726,97 @@
   const shelf = document.getElementById('shelf');
   const books = shelf ? [...shelf.querySelectorAll('.book')] : [];
 
-  books.forEach(book => {
-    const leaves = [...book.querySelectorAll('.leaf')];
-    const prev = book.querySelector('.flip-prev');
-    const next = book.querySelector('.flip-next');
-    const closeBtn = book.querySelector('.close-book');
-    let turned = 0;                      // how many leaves are flipped over
+  const COVER_MS = 1150;
+  const PAGE_MS  = 920;
 
-    // Stack the leaves: unturned ones descend from the top of the pile,
-    // turned ones climb back up on the left side.
-    function restack() {
-      leaves.forEach((leaf, i) => {
-        const isTurned = i < turned;
-        leaf.classList.toggle('turned', isTurned);
-        leaf.style.zIndex = isTurned ? 10 + i : 10 + (leaves.length - i);
-      });
-      prev.disabled = turned === 0;
-      next.disabled = turned === leaves.length;
+  books.forEach(book => {
+    const leaves   = [...book.querySelectorAll('.leaf')];   // [0] is the cover
+    const prev     = book.querySelector('.flip-prev');
+    const next     = book.querySelector('.flip-next');
+    const closeBtn = book.querySelector('.close-book');
+    const spread   = book.querySelector('.spread');
+
+    let turned = 1;          // 1 = cover open, showing the first spread
+    let raf = 0;
+    const leafTimers = new Map();
+
+    function plane(i, isTurned) {
+      return isTurned ? 10 + i : 10 + (leaves.length - i);
     }
 
+    // animate === false places the sheets with no motion at all
+    function restack(animate) {
+      leaves.forEach((leaf, i) => {
+        const isTurned = i < turned;
+        const moving = animate && leaf.classList.contains('turned') !== isTurned;
+
+        leaf.classList.toggle('turned', isTurned);
+
+        if (moving) {
+          // a sheet in motion rides above the pile, or it vanishes behind it
+          leaf.style.zIndex = 90;
+          leaf.classList.add('turning');
+          clearTimeout(leafTimers.get(leaf));
+          const ms = leaf.classList.contains('leaf-cover') ? COVER_MS : PAGE_MS;
+          leafTimers.set(leaf, setTimeout(() => {
+            leaf.classList.remove('turning');
+            leaf.style.zIndex = plane(i, i < turned);
+          }, ms));
+        } else {
+          clearTimeout(leafTimers.get(leaf));
+          leaf.classList.remove('turning');
+          leaf.style.zIndex = plane(i, isTurned);
+        }
+      });
+
+      prev.disabled = turned <= 1;
+      next.disabled = turned === leaves.length;
+      book.classList.toggle('cover-open', turned >= 1);
+    }
+
+    // the only animated step: turning a sheet
     function go(delta) {
-      const t = Math.min(leaves.length, Math.max(0, turned + delta));
+      const t = Math.min(leaves.length, Math.max(1, turned + delta));
       if (t === turned) return;
       turned = t;
-      restack();
+      restack(true);
     }
 
     function openBook() {
-      books.forEach(b => {
-        if (b !== book) { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }
-      });
+      books.forEach(b => { if (b !== book) b.ctl.close(); });
+
+      // Step one, instant: the spine is replaced by the closed book, square
+      // to the viewer. This is the step that used to glitch, so it animates
+      // not at all.
+      turned = 0;
+      restack(false);
       book.classList.add('open');
       book.setAttribute('aria-expanded', 'true');
       shelf.classList.add('has-open');
-      turned = 0;
-      restack();
+
+      // Step two, animated: once that state has actually been painted, the
+      // cover falls open. Two frames of wait, or the browser collapses both
+      // states into one and the swing never plays.
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        raf = requestAnimationFrame(() => {
+          if (!book.classList.contains('open')) return;
+          turned = 1;
+          restack(true);
+        });
+      });
     }
 
-    function closeBook() {
+    function close() {
+      cancelAnimationFrame(raf);
+      turned = 1;
+      restack(false);
       book.classList.remove('open');
       book.setAttribute('aria-expanded', 'false');
       shelf.classList.remove('has-open');
     }
+
+    book.ctl = { close, isOpen: () => book.classList.contains('open') };
 
     book.addEventListener('click', () => {
       if (!book.classList.contains('open')) openBook();
@@ -1629,7 +1824,8 @@
     book.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        book.classList.contains('open') ? closeBook() : openBook();
+        book.classList.contains('open') ? close() : openBook();
+        return;
       }
       if (!book.classList.contains('open')) return;
       if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
@@ -1638,28 +1834,26 @@
 
     next.addEventListener('click', (e) => { e.stopPropagation(); go(1); });
     prev.addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
-    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeBook(); });
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
 
-    // turning by clicking the page halves, the way you would with a real book
-    book.querySelector('.spread').addEventListener('click', (e) => {
+    spread.addEventListener('click', (e) => {
       e.stopPropagation();
       if (e.target.closest('button')) return;
       const box = book.getBoundingClientRect();
       go(e.clientX - box.left > box.width / 2 ? 1 : -1);
     });
 
-    restack();
+    restack(false);
   });
 
+  function closeEverything() {
+    books.forEach(b => { if (b.ctl.isOpen()) b.ctl.close(); });
+  }
   document.addEventListener('click', (e) => {
-    if (!shelf || e.target.closest('#shelf')) return;
-    books.forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); });
-    shelf.classList.remove('has-open');
+    if (shelf && !e.target.closest('#shelf')) closeEverything();
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape' || !shelf) return;
-    books.forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); });
-    shelf.classList.remove('has-open');
+    if (e.key === 'Escape') closeEverything();
   });
 </script>
 
